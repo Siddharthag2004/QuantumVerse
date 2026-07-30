@@ -1,0 +1,62 @@
+{
+  "testuser": {
+    "password": "testpass",
+    "avatar": "⚛️",
+    "xp": 120,
+    "level": 2,
+    "progress": {},
+    "achievements": []
+  },
+  "siddhu": {
+    "password": "2004",
+    "avatar": "lock",
+    "xp": 1230,
+    "level": 3,
+    "progress": {
+      "gates": 25,
+      "foundations": 100
+    },
+    "achievements": [
+      "welcome",
+      "vqe-run",
+      "level-2",
+      "account",
+      "level-3",
+      "foundations-pass"
+    ]
+  },
+  "Siddhu": {
+    "password": "2004",
+    "avatar": "cat",
+    "xp": 3190,
+    "level": 7,
+    "progress": {
+      "foundations": 100,
+      "gates": 25
+    },
+    "achievements": [
+      "foundations-pass",
+      "welcome",
+      "level-2",
+      "account",
+      "level-3",
+      "level-4",
+      "vqe-run",
+      "level-5",
+      "max-level",
+      "level-6",
+      "level-7"
+    ]
+  },
+  "sid": {
+    "password": "2004",
+    "avatar": "atom",
+    "xp": 45,
+    "level": 1,
+    "progress": {},
+    "achievements": [
+      "account",
+      "welcome"
+    ]
+  }
+}

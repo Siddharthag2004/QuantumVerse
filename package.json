@@ -1,0 +1,23 @@
+{
+  "name": "quantumverse",
+  "version": "1.0.0",
+  "description": "Interactive Quantum Computing Education Platform",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js",
+    "preview": "node server.js"
+  },
+  "keywords": [
+    "quantum",
+    "education",
+    "interactive",
+    "quantum-computing"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "mongoose": "^9.7.4"
+  }
+}
