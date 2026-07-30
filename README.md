@@ -1,249 +1,219 @@
-# QuantumVerse 🌌
+# QuantumVerse
 ### An Interactive Quantum Computing Education Platform
 
-> **Quantum Education Platform 2026**  
-> A browser-based, gamified, AI-assisted quantum computing learning experience.
+**WISER Summer Program 2026 — Final Project Submission**  
+**Author:** Siddhartha Gurrapu (solo project)  
+**Live Demo:** https://quantumverse-84r8.onrender.com  
+**Repository:** https://github.com/Siddharthag2004/QuantumVerse  
+**Submission deadline:** August 7, 2026
 
 ---
 
-## 🚀 Quick Start
+## The Challenge
 
-**No installation required.** Just open `index.html` in any modern browser (Chrome, Firefox, Edge, Safari).
+Quantum computing is one of the most important emerging fields in science and technology, yet it remains inaccessible to most learners. Existing resources tend to fall into two extremes: dense academic textbooks that require advanced physics and linear algebra, or shallow overviews that never build real intuition. Students, developers, and educators need a way to learn quantum concepts interactively — through visualization, simulation, and practice — without installing specialized software or setting up complex development environments.
 
-```bash
-# Option 1: Open directly
-open index.html       # macOS
-start index.html      # Windows
-
-# Option 2: Serve locally (recommended for all features)
-python3 -m http.server 8080
-# Then visit: http://localhost:8080
-```
+The challenge was to build a complete, browser-based quantum education platform that teaches from first principles (qubits and superposition) through advanced topics (algorithms, cryptography, error correction, and quantum machine learning), while keeping learners engaged through gamification and immediate feedback.
 
 ---
 
-## 🎯 Target Audience
+## Your Approach
 
-| Audience | Background Needed |
-|---|---|
-| Undergraduate students | Basic linear algebra, complex numbers |
-| Software developers | Programming experience |
-| Graduate researchers | Technical background, exploring quantum |
-| Educators | Teaching quantum computing concepts |
-| Career transitioners | STEM background helpful, not required |
+I approached this as a full-stack educational product rather than a static tutorial site. The platform is structured around six progressive learning modules, each combining conceptual explanations, interactive simulations, and adaptive quizzes. Rather than presenting quantum mechanics as abstract equations alone, every major concept is paired with a hands-on lab — a draggable Bloch sphere, a circuit builder, a step-by-step Grover's algorithm visualizer, or a BB84 key distribution simulator.
 
-**Difficulty progression:** Beginner → Intermediate → Advanced, across all 5 modules.
+Engagement is sustained through an XP and achievement system, a skill radar chart that tracks competency across domains, and an AI tutor ("Qubit") that answers questions in context. Progress persists across sessions via localStorage with optional cloud sync through a Node.js backend and MongoDB Atlas, so learners can create accounts and retain their progress when deployed online.
+
+The design prioritizes zero-install access: open a URL, and the full platform runs in the browser.
 
 ---
 
-## 📚 Learning Objectives
+## Methods
 
-After completing QuantumVerse, learners will be able to:
-
-1. **Describe** what a qubit is and how it differs from a classical bit
-2. **Visualize** qubit states on the Bloch sphere and interpret θ, φ angles
-3. **Explain** quantum superposition, entanglement, and interference
-4. **Apply** quantum gates (H, X, Y, Z, S, T, CNOT) and compute state transformations
-5. **Build** simple quantum circuits and predict measurement outcomes
-6. **Analyze** Grover's and Deutsch-Jozsa algorithms step by step
-7. **Simulate** the BB84 quantum key distribution protocol
-8. **Understand** why quantum error correction is needed and how the 3-qubit code works
-9. **Explore** Quantum Machine Learning (QML), VQE, and QAOA
-10. **Analyze** advanced protocols like Quantum Fourier Transform (QFT) and Quantum Teleportation
-
----
-
-## 🏗️ Architecture
+### Platform Architecture
 
 ```
 QuantumVerse/
-├── index.html              ← App shell, HTML structure
-├── style.css               ← Complete design system (dark quantum theme)
-├── app.js                  ← Router, XP system, progress, i18n, localStorage
+├── index.html              App shell and HTML structure
+├── style.css               Design system (dark quantum theme)
+├── app.js                  Router, XP system, progress, i18n, auth
+├── server.js               Express API server (signup, signin, sync)
 │
-├── modules/                ← Learning module content & logic
-│   ├── foundations.js      ← Qubits, superposition, Bloch, entanglement, measurement
-│   ├── gates.js            ← Gate library, simulator, circuit builder integration
-│   ├── algorithms.js       ← Grover's & Deutsch-Jozsa interactive visualizers
-│   ├── cryptography.js     ← BB84 protocol simulator & Quantum Teleportation
-│   ├── error-correction.js ← 3-qubit bit-flip code lab
-│   └── qml.js              ← Quantum Machine Learning (VQE, QAOA)
+├── modules/                Learning module content and logic
+│   ├── foundations.js      Qubits, superposition, Bloch sphere, entanglement
+│   ├── gates.js            Gate library, simulator, circuit builder
+│   ├── algorithms.js       Grover's and Deutsch-Jozsa visualizers
+│   ├── cryptography.js     BB84 protocol and quantum teleportation
+│   ├── error-correction.js 3-qubit bit-flip code lab
+│   └── qml.js              VQE, QAOA, and quantum ML
 │
-├── components/             ← Reusable interactive components
-│   ├── bloch-sphere.js     ← Three.js 3D Bloch sphere (drag-to-rotate)
-│   ├── circuit-builder.js  ← Drag-and-drop 4-qubit circuit simulator with QASM export
-│   ├── quiz.js             ← Adaptive quiz engine with weak-area tracking
-│   ├── ai-tutor.js         ← Context-aware AI chatbot with markdown & typing animation
-│   ├── radar-chart.js      ← Chart.js skill visualization radar chart
-│   └── vqa-visualizer.js   ← VQA optimizer visualizer (built into QML module)
+├── components/             Reusable interactive components
+│   ├── bloch-sphere.js     Three.js 3D Bloch sphere
+│   ├── circuit-builder.js  Drag-and-drop 4-qubit circuit simulator
+│   ├── quiz.js             Adaptive quiz engine
+│   ├── ai-tutor.js         Context-aware AI chatbot
+│   └── radar-chart.js      Skill visualization chart
 │
-└── data/
-    ├── quiz-questions.js   ← 100+ quiz questions with explanations
-    └── translations.js     ← i18n support (EN, ES, FR)
+├── data/
+│   ├── quiz-questions.js   100+ quiz questions with explanations
+│   └── translations.js     i18n support (EN, ES, FR)
+│
+└── assets/                 Three.js, Chart.js, GSAP, images
 ```
 
----
+### Technologies
 
-## 🎓 Educational Methodology
+| Technology | Purpose |
+|---|---|
+| HTML5, CSS3, Vanilla JavaScript | Core frontend platform |
+| Node.js + Express | Backend API for user accounts and progress sync |
+| MongoDB Atlas | Cloud database for persistent user data |
+| Three.js | 3D Bloch sphere visualization |
+| Chart.js | Probability histograms and skill radar |
+| GSAP + ScrollTrigger | Animations and scroll effects |
+| Render.com | Production deployment |
+| localStorage | Offline progress fallback |
 
-### 1. Constructivist Learning
-Each module introduces concepts through exploration before formal definition — learners discover behaviors by interacting with simulations, then receive the mathematical formalization.
+### Educational Methodology
 
-### 2. Scaffolded Progression
-Content difficulty increases within each module:
-- **Level 1 (Conceptual):** Intuitive explanation, analogies
-- **Level 2 (Mathematical):** State notation, matrices, equations
-- **Level 3 (Computational):** Interactive simulation, parameter exploration
-- **Level 4 (Assessment):** Quiz with immediate explanatory feedback
+1. **Constructivist learning** — learners explore simulations before receiving formal definitions
+2. **Scaffolded progression** — conceptual, mathematical, computational, then assessment within each module
+3. **Active learning** — every concept has a corresponding interactive simulator
+4. **Gamification** — XP, levels, achievements, and a skill radar chart
+5. **AI tutor** — Socratic-style answers available 24/7 across all modules
+6. **Multilingual support** — English, Spanish, and French
 
-### 3. Active Learning via Simulation
-Every concept has a corresponding interactive simulator:
-- Superposition → Probability amplitude slider
-- Bloch Sphere → Drag-to-rotate 3D visualization with θ/φ controls
-- Circuit gates → Real-time matrix display + state update
-- Grover's algorithm → Step-by-step amplitude bar animation
-- BB84 → Full Alice-Bob-Eve simulation with QBER display
+### Deployment
 
-### 4. Gamification (XP + Achievements)
-- **XP System:** Earn XP for completing lessons (+10–50), quizzes (+50/question), and labs (+25–40)
-- **Levels:** 6 levels from Quantum Novice to Quantum Architect
-- **Achievements:** Unlocked by module completion, perfect scores, and interaction milestones
-- **Skill Radar:** Visual tracking of competency in different quantum domains
-- **Progress Tracking:** Persistent via localStorage across sessions
+The app is deployed on Render with MongoDB Atlas for cloud persistence. Run locally with:
 
-### 5. AI Tutor (Qubit)
-A context-aware chatbot with markdown support, typing animations, and comprehensive knowledge spanning all modules. Provides instant, Socratic-style answers to student questions 24/7.
+```bash
+npm install
+# Set MONGODB_URI in .env (optional — falls back to localStorage)
+node server.js
+# Visit http://localhost:8080
+```
 
-### 6. Multilingual Support
-Interface and navigation available in English, Spanish (ES), and French (FR).
-
----
-
-## 🛠️ Technologies Used
-
-| Technology | Purpose | License |
-|---|---|---|
-| HTML5, CSS3, Vanilla JS | Core platform | N/A |
-| [Three.js r128](https://threejs.org/) | 3D Bloch sphere | MIT |
-| [Chart.js 4.4](https://www.chartjs.org/) | Probability histograms | MIT |
-| [Google Fonts](https://fonts.google.com/) | Inter, Space Grotesk, JetBrains Mono | SIL OFL |
-| CSS Glassmorphism | Visual design system | N/A |
-| localStorage API | Progress persistence | N/A |
-
-**No backend required.** Runs entirely in the browser.
+Or open `index.html` directly for frontend-only use (no account sync).
 
 ---
 
-## 📊 Modules & Content
+## Results
+
+QuantumVerse delivers a fully functional, deployed quantum education platform with:
+
+| Metric | Value |
+|---|---|
+| Learning modules | 6 (Foundations, Gates, Algorithms, Cryptography, Error Correction, QML) |
+| Lessons | 22 |
+| Interactive labs and simulations | 20 |
+| Quiz questions | 100+ |
+| Languages supported | 3 (EN, ES, FR) |
+| Live deployment | https://quantumverse-84r8.onrender.com |
+
+### Key interactive features delivered
+
+- **Bloch Sphere Lab** — Three.js 3D sphere with drag-to-rotate, theta/phi sliders, and gate application
+- **Circuit Builder** — 4-qubit drag-and-drop simulator with OpenQASM 2.0 export
+- **Grover Visualizer** — Step-by-step amplitude bar animation
+- **Deutsch-Jozsa Simulator** — Function-type selection with algorithm animation
+- **BB84 and Teleportation** — Full Alice/Bob/Eve protocol simulation
+- **QEC Lab** — Bit-flip error injection, syndrome measurement, auto-correction
+- **VQE and QAOA Visualizers** — Interactive quantum machine learning optimizers
+- **AI Tutor** — Context-aware chat with markdown support
+- **User accounts** — Sign up, sign in, and cloud progress sync via MongoDB
+
+After completing the platform, learners can describe qubit states, apply quantum gates, build circuits, analyze Grover's and Deutsch-Jozsa algorithms, simulate BB84 key distribution, understand 3-qubit error correction, and explore VQE and QAOA.
+
+---
+
+## Limitations
+
+- **No real quantum hardware integration** — all simulations run classically in the browser; circuits cannot be executed on IBM Quantum or other providers yet
+- **AI tutor is rule-based, not LLM-powered** — responses come from a curated knowledge base, not a live language model API
+- **Password storage is plaintext** — suitable for a demo/education project but not production-grade security
+- **Render free tier cold starts** — the deployed site can take 50+ seconds to respond after periods of inactivity
+- **Limited accessibility testing** — keyboard navigation exists but full WCAG compliance has not been verified
+- **Shor's algorithm and surface codes** — planned but not yet implemented
+- **Offline account sync** — without the backend running, progress is localStorage-only and device-specific
+
+---
+
+## Individual Contributions
+
+This is a solo project. Siddhartha Gurrapu was solely responsible for:
+
+- **Concept and curriculum design** — defining all six modules, lesson structure, and learning progression from beginner to advanced
+- **Frontend development** — entire UI, routing, XP/achievement system, dark/light theme, search, and keyboard shortcuts
+- **Interactive simulations** — Bloch sphere, circuit builder, algorithm visualizers, BB84 simulator, error correction lab, VQE/QAOA demos
+- **Quiz engine** — 100+ questions with adaptive weak-area tracking and explanatory feedback
+- **AI tutor** — knowledge base authoring and chat interface
+- **Backend and database** — Express API, MongoDB Atlas integration, user auth and progress sync
+- **Deployment** — Render.com setup, environment configuration, and production debugging
+- **Content verification** — quantum physics accuracy checked against standard references (Nielsen & Chuang, IBM Qiskit Textbook)
+
+AI coding assistants (Cursor) were used as development tools during implementation. All quantum physics content and architectural decisions were made and verified by the author.
+
+---
+
+## Quick Start
+
+```bash
+git clone https://github.com/Siddharthag2004/QuantumVerse.git
+cd QuantumVerse
+npm install
+node server.js
+# Visit http://localhost:8080
+```
+
+Or visit the live deployment: https://quantumverse-84r8.onrender.com
+
+---
+
+## Modules and Content
 
 | Module | Lessons | Topics | Difficulty |
 |---|---|---|---|
-| ⚛️ Quantum Foundations | 5 | Qubits, superposition, Bloch sphere, entanglement, measurement | Beginner |
-| 🔧 Gates & Circuits | 4 | Single/multi-qubit gates, matrices, 4-qubit circuit builder | Intermediate |
-| 🧮 Quantum Algorithms | 4 | Deutsch-Jozsa, Grover's search, QFT, quantum speedups | Intermediate |
-| 🔐 Quantum Cryptography | 3 | BB84 protocol, QKD, Quantum Teleportation | Advanced |
-| 🛡️ Error Correction | 2 | QEC principles, 3-qubit bit-flip code | Advanced |
-| 🤖 Quantum ML | 4 | Variational circuits, VQE optimizer, QAOA, hybrid networks | Advanced |
-
-**Total: 22 lessons, 20 interactive labs/simulations, 100+ quiz questions**
+| Quantum Foundations | 5 | Qubits, superposition, Bloch sphere, entanglement, measurement | Beginner |
+| Gates and Circuits | 4 | Single/multi-qubit gates, matrices, 4-qubit circuit builder | Intermediate |
+| Quantum Algorithms | 4 | Deutsch-Jozsa, Grover's search, QFT, quantum speedups | Intermediate |
+| Quantum Cryptography | 3 | BB84 protocol, QKD, Quantum Teleportation | Advanced |
+| Error Correction | 2 | QEC principles, 3-qubit bit-flip code | Advanced |
+| Quantum ML | 4 | Variational circuits, VQE optimizer, QAOA, hybrid networks | Advanced |
 
 ---
 
-## 🎮 Interactive Features
-
-1. **Bloch Sphere** — Three.js 3D sphere, drag to rotate, sliders for θ/φ, click preset states
-2. **Circuit Builder** — 4-qubit drag-and-drop simulator with OpenQASM 2.0 export
-3. **VQE & QAOA Visualizers** — Interactive optimizers for Quantum Machine Learning
-4. **Grover Visualizer** — Amplitude bar chart animating over iterations, step/auto-run modes
-5. **Deutsch-Jozsa Simulator** — Select function type, step through algorithm animation
-6. **BB84 & Teleportation** — Full Alice/Bob/Eve simulation and quantum state transfer
-7. **QEC Lab** — Inject bit-flip errors, trigger syndrome measurement, watch auto-correction
-8. **Measurement Simulator** — Repeated measurement with history tracking
-9. **Skill Radar Chart** — Dynamic visualization of learning progress across 5 domains
-10. **AI Tutor** — Context-aware chat with markdown support for instant explanations
-
----
-
-## 🌍 Browser Support
+## Browser Support
 
 | Browser | Status |
 |---|---|
-| Chrome 90+ | ✅ Full support |
-| Firefox 88+ | ✅ Full support |
-| Safari 14+ | ✅ Full support |
-| Edge 90+ | ✅ Full support |
+| Chrome 90+ | Full support |
+| Firefox 88+ | Full support |
+| Safari 14+ | Full support |
+| Edge 90+ | Full support |
 
 ---
 
-## 📈 Future Improvements & Scalability
+## Future Improvements
 
-### Short Term (v1.2)
-- [ ] Shor's algorithm visualizer
-- [ ] Surface code visualizations
-
-### Medium Term (v2.0)
-- [ ] **Qiskit Integration**: Run circuits on real IBM quantum hardware
-- [ ] **More Languages**: Japanese, Arabic, Hindi
-- [ ] **Lecture Videos**: Embedded animated explainers
-- [ ] **Collaborative Mode**: Share circuits with other learners
-- [ ] **Assessment Dashboard**: Educator view of class progress
-
-### Long Term (v3.0)
-- [ ] **VR Mode**: WebXR Bloch sphere exploration
-- [ ] **LMS Integration**: SCORM export for Canvas/Moodle
-- [ ] **Community Circuits**: Share/remix quantum circuits
+- Shor's algorithm visualizer and surface code visualizations
+- Qiskit integration for real IBM quantum hardware
+- Additional languages (Japanese, Arabic, Hindi)
+- LMS integration (SCORM export for Canvas/Moodle)
+- Production-grade authentication (hashed passwords, OAuth)
 
 ---
 
-## 🏆 Judging Criteria Alignment
-
-| Criterion | Implementation |
-|---|---|
-| **Educational Impact** | 5 modules, 16 lessons, constructivist pedagogy, scaffolded difficulty |
-| **Technical Accuracy** | Correct quantum math (normalization, unitary matrices, syndrome measurement) |
-| **Creativity** | Gamification, AI tutor, animated Bloch sphere, step-by-step algorithm visualization |
-| **User Engagement** | XP system, achievements, interactive simulations, instant feedback |
-| **Implementation Quality** | Modular architecture, responsive design, localStorage persistence |
-| **Documentation** | This README, in-app tooltips, AI tutor, math annotations |
-| **Adoption Potential** | Zero install, open source, multilingual, educator-ready |
-| **Scalability** | Module system allows new topics without architecture changes |
-
----
-
-## 📄 Attribution & Licenses
+## Attribution and Licenses
 
 - Three.js — MIT License — https://threejs.org/
 - Chart.js — MIT License — https://www.chartjs.org/
+- GSAP — Standard License — https://gsap.com/
 - Google Fonts — SIL Open Font License
-- Educational content based on publicly available quantum computing literature and quantum curriculum materials
-
-**AI Disclosure:** This platform was built with AI coding assistance (Google Antigravity). All quantum physics content was verified against standard quantum computing textbooks (Nielsen & Chuang, IBM Qiskit Textbook). The AI tutor knowledge base was authored and verified by the team.
+- Educational content based on publicly available quantum computing literature
 
 ---
 
-## 👥 Team
+## Contact
 
-Built for the **Quantum Education Platform 2026**  
-Submission deadline: August 7, 2026
-
----
-
-## 📧 User Guide
-
-### Getting Started
-1. Open `index.html` — watch the quantum splash animation
-2. Click **"Start Learning →"** or any module card from the home screen
-3. Navigate lessons via the tab bar within each module
-4. **Interact** with every simulator — drag sliders, click buttons, drag gates
-5. Click **"Start Quiz →"** at the bottom of each module to test your knowledge
-6. Click **"🤖 AI Tutor"** in the top bar to ask questions anytime
-
-### Earning XP & Achievements
-- Complete lessons: +10 XP per lesson tab visited
-- Run circuit simulations: +25 XP
-- Quiz questions correct: +50 XP
-- Module completion: +100 XP
-- Watch achievements appear as toast notifications!
-
-### Progress is Saved
-All your progress, XP, and achievements are automatically saved to your browser's localStorage. Return anytime to continue where you left off.
+Questions about this project: gurrapusiddhartha2004@gmail.com  
+WISER program inquiries: hello@thewiser.org
