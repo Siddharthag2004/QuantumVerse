@@ -795,9 +795,7 @@ const App = {
           lastRiddleSolvedDate: this.lastRiddleSolvedDate
         };
         localStorage.setItem('qv-users', JSON.stringify(this.users));
-      } else {
-        await this._loadState();
-      }
+        this._loadStateLocal();
 
       this.updateAuthUI();
       this._renderXP();
@@ -882,12 +880,7 @@ const App = {
       success = true;
     }
 
-    if (success) {
-      this.activeUser = user;
-      localStorage.setItem('qv-active-user', user);
-      localStorage.setItem('qv-users', JSON.stringify(this.users));
-      
-      await this._loadState();
+      this._loadStateLocal();
       this.updateAuthUI();
       this.closeAuthModal();
       
@@ -1251,7 +1244,7 @@ const App = {
     this.dailyStreak = 0;
     this.lastRiddleSolvedDate = '';
     this._saveState();
-    this._loadState();
+    this._loadStateLocal();
     
     this.updateAuthUI();
     this._renderXP();
