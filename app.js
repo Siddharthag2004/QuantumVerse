@@ -795,7 +795,8 @@ const App = {
           lastRiddleSolvedDate: this.lastRiddleSolvedDate
         };
         localStorage.setItem('qv-users', JSON.stringify(this.users));
-        this._loadStateLocal();
+      }
+      this._loadStateLocal();
 
       this.updateAuthUI();
       this._renderXP();
@@ -880,6 +881,11 @@ const App = {
       success = true;
     }
 
+    if (success) {
+      this.activeUser = user;
+      localStorage.setItem('qv-active-user', user);
+      localStorage.setItem('qv-users', JSON.stringify(this.users));
+
       this._loadStateLocal();
       this.updateAuthUI();
       this.closeAuthModal();
@@ -893,7 +899,7 @@ const App = {
     }
   },
 
-    generateCertificate() {
+  generateCertificate() {
     const allModules = ['foundations','gates','algorithms','cryptography','error','qml'];
     const allLessonsDone = allModules.every(m => this.isModuleRead(m));
     const allPerfect = allModules.every(m => this.achievements.has(`${m}-perfect`));
