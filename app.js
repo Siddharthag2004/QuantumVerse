@@ -10,16 +10,16 @@ function drawSuperPip(g, x, y, radius, color, time, label = '') {
   grad.addColorStop(1, 'transparent');
   g.fillStyle = grad;
   g.beginPath();
-  g.arc(x, y, radius + pulse + 8, 0, Math.PI*2);
+  g.arc(x, y, radius + pulse + 8, 0, Math.PI * 2);
   g.fill();
 
   g.strokeStyle = color;
   g.lineWidth = 1;
   g.beginPath();
-  g.ellipse(x, y, radius * 1.6, radius * 0.6, time * 0.8, 0, Math.PI*2);
+  g.ellipse(x, y, radius * 1.6, radius * 0.6, time * 0.8, 0, Math.PI * 2);
   g.stroke();
   g.beginPath();
-  g.ellipse(x, y, radius * 1.6, radius * 0.6, -time * 0.5, 0, Math.PI*2);
+  g.ellipse(x, y, radius * 1.6, radius * 0.6, -time * 0.5, 0, Math.PI * 2);
   g.stroke();
 
   if (label) {
@@ -68,7 +68,7 @@ function drawSpacePortal(g, x, y, size, time, color) {
     g.strokeStyle = color;
     g.lineWidth = 1.5;
     g.beginPath();
-    g.ellipse(x, y, size * scale, size * scale * 0.5, time * (i + 1) * 0.4, 0, Math.PI*2);
+    g.ellipse(x, y, size * scale, size * scale * 0.5, time * (i + 1) * 0.4, 0, Math.PI * 2);
     g.stroke();
   }
   const grad = g.createRadialGradient(x, y, 2, x, y, size * 0.4);
@@ -77,7 +77,7 @@ function drawSpacePortal(g, x, y, size, time, color) {
   grad.addColorStop(1, 'transparent');
   g.fillStyle = grad;
   g.beginPath();
-  g.arc(x, y, size * 0.5, 0, Math.PI*2);
+  g.arc(x, y, size * 0.5, 0, Math.PI * 2);
   g.fill();
   g.restore();
 }
@@ -105,11 +105,11 @@ function drawCuteCat(g, x, y, scale = 1, state = 'awake', time = 0) {
 
     g.fillStyle = bodyColor;
     g.beginPath();
-    g.ellipse(0, 10, 20, 16, 0, 0, Math.PI*2);
+    g.ellipse(0, 10, 20, 16, 0, 0, Math.PI * 2);
     g.fill();
 
     g.beginPath();
-    g.arc(0, -15, 16, 0, Math.PI*2);
+    g.arc(0, -15, 16, 0, Math.PI * 2);
     g.fill();
 
     g.beginPath();
@@ -123,17 +123,17 @@ function drawCuteCat(g, x, y, scale = 1, state = 'awake', time = 0) {
     g.moveTo(12, -24); g.lineTo(15, -32); g.lineTo(5, -26); g.closePath();
     g.fill();
 
-    const eyePulse = 1 + Math.sin(time*2)*0.05;
+    const eyePulse = 1 + Math.sin(time * 2) * 0.05;
     g.fillStyle = 'var(--accent-green)';
     g.beginPath();
-    g.arc(-6, -16, 3.5 * eyePulse, 0, Math.PI*2);
-    g.arc(6, -16, 3.5 * eyePulse, 0, Math.PI*2);
+    g.arc(-6, -16, 3.5 * eyePulse, 0, Math.PI * 2);
+    g.arc(6, -16, 3.5 * eyePulse, 0, Math.PI * 2);
     g.fill();
-    
+
     g.fillStyle = eyeColor;
     g.beginPath();
-    g.ellipse(-6, -16, 1, 3, 0, 0, Math.PI*2);
-    g.ellipse(6, -16, 1, 3, 0, 0, Math.PI*2);
+    g.ellipse(-6, -16, 1, 3, 0, 0, Math.PI * 2);
+    g.ellipse(6, -16, 1, 3, 0, 0, Math.PI * 2);
     g.fill();
 
     g.fillStyle = innerEarColor;
@@ -159,11 +159,11 @@ function drawCuteCat(g, x, y, scale = 1, state = 'awake', time = 0) {
   } else {
     g.fillStyle = bodyColor;
     g.beginPath();
-    g.arc(0, 0, 24, 0, Math.PI*2);
+    g.arc(0, 0, 24, 0, Math.PI * 2);
     g.fill();
 
     g.beginPath();
-    g.arc(8, -4, 14, 0, Math.PI*2);
+    g.arc(8, -4, 14, 0, Math.PI * 2);
     g.fill();
 
     g.beginPath();
@@ -201,7 +201,7 @@ function drawCuteMouse(g, x, y, scale = 1, color = '#94a3b8', label = '', angle 
   // Body
   g.fillStyle = color;
   g.beginPath();
-  g.ellipse(0, 0, 14, 10, 0, 0, Math.PI*2);
+  g.ellipse(0, 0, 14, 10, 0, 0, Math.PI * 2);
   g.fill();
 
   // Snout
@@ -215,33 +215,33 @@ function drawCuteMouse(g, x, y, scale = 1, color = '#94a3b8', label = '', angle 
   // Nose tip
   g.fillStyle = '#fca5a5';
   g.beginPath();
-  g.arc(18, 0, 2.5, 0, Math.PI*2);
+  g.arc(18, 0, 2.5, 0, Math.PI * 2);
   g.fill();
 
   // Ears
   g.fillStyle = color;
   g.beginPath();
-  g.arc(-2, -8, 7, 0, Math.PI*2);
+  g.arc(-2, -8, 7, 0, Math.PI * 2);
   g.fill();
   g.fillStyle = '#fca5a5';
   g.beginPath();
-  g.arc(-2, -8, 4, 0, Math.PI*2);
+  g.arc(-2, -8, 4, 0, Math.PI * 2);
   g.fill();
 
   g.fillStyle = color;
   g.beginPath();
-  g.arc(-2, 8, 7, 0, Math.PI*2);
+  g.arc(-2, 8, 7, 0, Math.PI * 2);
   g.fill();
   g.fillStyle = '#fca5a5';
   g.beginPath();
-  g.arc(-2, 8, 4, 0, Math.PI*2);
+  g.arc(-2, 8, 4, 0, Math.PI * 2);
   g.fill();
 
   // Eyes
   g.fillStyle = '#0f172a';
   g.beginPath();
-  g.arc(7, -3, 1.5, 0, Math.PI*2);
-  g.arc(7, 3, 1.5, 0, Math.PI*2);
+  g.arc(7, -3, 1.5, 0, Math.PI * 2);
+  g.arc(7, 3, 1.5, 0, Math.PI * 2);
   g.fill();
 
   // Long Pink Tail
@@ -274,7 +274,7 @@ const App = {
   activeUser: localStorage.getItem('qv-active-user') || null,
   users: JSON.parse(localStorage.getItem('qv-users') || '{}'),
   signupAvatar: 'atom',
-  
+
   // Bloch Sphere Sandbox State
   sandbox: {
     instance: null,
@@ -306,21 +306,21 @@ const App = {
 
     if (this.activeUser && this.users[this.activeUser]) {
       const u = this.users[this.activeUser];
-      this.xp           = u.xp           || 0;
-      this.level        = u.level        || 1;
-      this.progress     = u.progress     || {};
+      this.xp = u.xp || 0;
+      this.level = u.level || 1;
+      this.progress = u.progress || {};
       this.achievements = new Set(u.achievements || []);
       this.visitedLessons = u.visitedLessons || {};
-      this.dailyStreak  = u.dailyStreak  || 0;
+      this.dailyStreak = u.dailyStreak || 0;
       this.lastRiddleSolvedDate = u.lastRiddleSolvedDate || '';
     } else {
       const s = this.state;
-      this.xp           = s.xp           || 0;
-      this.level        = s.level        || 1;
-      this.progress     = s.progress     || {};
+      this.xp = s.xp || 0;
+      this.level = s.level || 1;
+      this.progress = s.progress || {};
       this.achievements = new Set(s.achievements || []);
       this.visitedLessons = s.visitedLessons || {};
-      this.dailyStreak  = s.dailyStreak  || 0;
+      this.dailyStreak = s.dailyStreak || 0;
       this.lastRiddleSolvedDate = s.lastRiddleSolvedDate || '';
     }
 
@@ -345,12 +345,12 @@ const App = {
         const data = await res.json();
         if (data.success && data.user) {
           const u = data.user;
-          this.xp           = u.xp           || 0;
-          this.level        = u.level        || 1;
-          this.progress     = u.progress     || {};
+          this.xp = u.xp || 0;
+          this.level = u.level || 1;
+          this.progress = u.progress || {};
           this.achievements = new Set(u.achievements || []);
           this.visitedLessons = u.visitedLessons || {};
-          this.dailyStreak  = u.dailyStreak  || 0;
+          this.dailyStreak = u.dailyStreak || 0;
           this.lastRiddleSolvedDate = u.lastRiddleSolvedDate || '';
 
           this.users[this.activeUser] = {
@@ -489,8 +489,8 @@ const App = {
     if (themeBtn) {
       const moonSVG = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
       const sunSVG = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
-      themeBtn.innerHTML = dark 
-        ? `${moonSVG}<span class="theme-toggle-label" id="themeLabel">${this.t('dark_mode')}</span>` 
+      themeBtn.innerHTML = dark
+        ? `${moonSVG}<span class="theme-toggle-label" id="themeLabel">${this.t('dark_mode')}</span>`
         : `${sunSVG}<span class="theme-toggle-label" id="themeLabel">${this.t('light_mode')}</span>`;
     }
 
@@ -525,7 +525,7 @@ const App = {
     this.lang = lang;
     this._applyLanguage();
     this._saveState();
-    
+
     // Wipe all module views so they are forced to re-render in the new language
     const modules = ['foundations', 'gates', 'algorithms', 'cryptography', 'error', 'qml'];
     modules.forEach(m => {
@@ -541,68 +541,68 @@ const App = {
   _applyLanguage() {
     // Static DOM elements
     const map = {
-      'label-learning-path':       this.t('learning_path'),
-      'label-progress':            this.t('progress_label'),
-      'nav-label-home':            this.t('nav_home'),
-      'nav-label-foundations':     this.t('nav_foundations'),
-      'nav-label-gates':           this.t('nav_gates'),
-      'nav-label-algorithms':      this.t('nav_algorithms'),
-      'nav-label-cryptography':    this.t('nav_cryptography'),
-      'nav-label-qml':             this.t('nav_qml'),
-      'nav-label-profile':         this.t('nav_profile'),
-      'nav-badge-foundations':     `5 ${this.t('lessons_suffix')}`,
-      'nav-badge-gates':           `4 ${this.t('lessons_suffix')}`,
-      'nav-badge-algorithms':      `4 ${this.t('lessons_suffix')}`,
-      'nav-badge-cryptography':    `3 ${this.t('lessons_suffix')}`,
-      'nav-badge-error':           `2 ${this.t('lessons_suffix')}`,
-      'nav-badge-qml':             `4 ${this.t('lessons_suffix')}`,
-      'prog-label-foundations':    `${this.t('nav_foundations')} (${this.getModuleProgress('foundations')}%)`,
-      'prog-label-gates':          `${this.t('nav_gates').split(' ')[0]} (${this.getModuleProgress('gates')}%)`,
-      'prog-label-algorithms':     `${this.t('nav_algorithms').split(' ')[0]} (${this.getModuleProgress('algorithms')}%)`,
-      'prog-label-cryptography':   `${this.t('nav_cryptography').split(' ')[0]} (${this.getModuleProgress('cryptography')}%)`,
-      'prog-label-error':          `${this.t('nav_error').split(' ')[0]} (${this.getModuleProgress('error')}%)`,
-      'prog-label-qml':            `${this.t('nav_qml')} (${this.getModuleProgress('qml')}%)`,
-      'hero-badge':                this.t('badge'),
-      'hero-title':                this.t('hero_title'),
-      'hero-sub':                  this.t('hero_sub'),
-      'btn-start':                 this.t('start'),
-      'btn-circuit':               this.t('circuit'),
-      'stat-lessons':              this.t('s_lessons'),
-      'stat-quizzes':              this.t('s_quizzes'),
-      'stat-labs':                 this.t('s_labs'),
-      'stat-ai':                   this.t('s_ai'),
-      'home-modules-title':        'Learning Modules',
-      'card-f-title':              this.t('card_f_title'),
-      'card-f-desc':               this.t('card_f_desc'),
-      'card-f-tag':                this.t('card_f_tag'),
-      'card-f-cta':                this.t('card_f_cta'),
-      'card-g-title':              this.t('card_g_title'),
-      'card-g-desc':               this.t('card_g_desc'),
-      'card-g-tag':                this.t('card_g_tag'),
-      'card-g-cta':                this.t('card_g_cta'),
-      'card-a-title':              this.t('card_a_title'),
-      'card-a-desc':               this.t('card_a_desc'),
-      'card-a-tag':                this.t('card_a_tag'),
-      'card-a-cta':                this.t('card_a_cta'),
-      'card-c-title':              this.t('card_c_title'),
-      'card-c-desc':               this.t('card_c_desc'),
-      'card-c-tag':                this.t('card_c_tag'),
-      'card-c-cta':                this.t('card_c_cta'),
-      'card-e-title':              this.t('card_e_title'),
-      'card-e-desc':               this.t('card_e_desc'),
-      'card-e-tag':                this.t('card_e_tag'),
-      'card-e-cta':                this.t('card_e_cta'),
-      'card-qml-title':            this.t('card_qml_title'),
-      'card-qml-desc':             this.t('card_qml_desc'),
-      'card-qml-tag':              this.t('card_qml_tag'),
-      'card-qml-cta':              this.t('card_qml_cta'),
-      'tutorToggle':               this.t('ai_tutor_btn'),
-      'tutor-title':               this.t('tutor_title'),
-      'tutor-online':              this.t('tutor_online'),
-      'tutor-welcome-msg':         this.t('tutor_welcome'),
-      'tutor-s1':                  this.t('tutor_q1'),
-      'tutor-s2':                  this.t('tutor_q2'),
-      'tutor-s3':                  this.t('tutor_q3'),
+      'label-learning-path': this.t('learning_path'),
+      'label-progress': this.t('progress_label'),
+      'nav-label-home': this.t('nav_home'),
+      'nav-label-foundations': this.t('nav_foundations'),
+      'nav-label-gates': this.t('nav_gates'),
+      'nav-label-algorithms': this.t('nav_algorithms'),
+      'nav-label-cryptography': this.t('nav_cryptography'),
+      'nav-label-qml': this.t('nav_qml'),
+      'nav-label-profile': this.t('nav_profile'),
+      'nav-badge-foundations': `5 ${this.t('lessons_suffix')}`,
+      'nav-badge-gates': `4 ${this.t('lessons_suffix')}`,
+      'nav-badge-algorithms': `4 ${this.t('lessons_suffix')}`,
+      'nav-badge-cryptography': `3 ${this.t('lessons_suffix')}`,
+      'nav-badge-error': `2 ${this.t('lessons_suffix')}`,
+      'nav-badge-qml': `4 ${this.t('lessons_suffix')}`,
+      'prog-label-foundations': `${this.t('nav_foundations')} (${this.getModuleProgress('foundations')}%)`,
+      'prog-label-gates': `${this.t('nav_gates').split(' ')[0]} (${this.getModuleProgress('gates')}%)`,
+      'prog-label-algorithms': `${this.t('nav_algorithms').split(' ')[0]} (${this.getModuleProgress('algorithms')}%)`,
+      'prog-label-cryptography': `${this.t('nav_cryptography').split(' ')[0]} (${this.getModuleProgress('cryptography')}%)`,
+      'prog-label-error': `${this.t('nav_error').split(' ')[0]} (${this.getModuleProgress('error')}%)`,
+      'prog-label-qml': `${this.t('nav_qml')} (${this.getModuleProgress('qml')}%)`,
+      'hero-badge': this.t('badge'),
+      'hero-title': this.t('hero_title'),
+      'hero-sub': this.t('hero_sub'),
+      'btn-start': this.t('start'),
+      'btn-circuit': this.t('circuit'),
+      'stat-lessons': this.t('s_lessons'),
+      'stat-quizzes': this.t('s_quizzes'),
+      'stat-labs': this.t('s_labs'),
+      'stat-ai': this.t('s_ai'),
+      'home-modules-title': 'Learning Modules',
+      'card-f-title': this.t('card_f_title'),
+      'card-f-desc': this.t('card_f_desc'),
+      'card-f-tag': this.t('card_f_tag'),
+      'card-f-cta': this.t('card_f_cta'),
+      'card-g-title': this.t('card_g_title'),
+      'card-g-desc': this.t('card_g_desc'),
+      'card-g-tag': this.t('card_g_tag'),
+      'card-g-cta': this.t('card_g_cta'),
+      'card-a-title': this.t('card_a_title'),
+      'card-a-desc': this.t('card_a_desc'),
+      'card-a-tag': this.t('card_a_tag'),
+      'card-a-cta': this.t('card_a_cta'),
+      'card-c-title': this.t('card_c_title'),
+      'card-c-desc': this.t('card_c_desc'),
+      'card-c-tag': this.t('card_c_tag'),
+      'card-c-cta': this.t('card_c_cta'),
+      'card-e-title': this.t('card_e_title'),
+      'card-e-desc': this.t('card_e_desc'),
+      'card-e-tag': this.t('card_e_tag'),
+      'card-e-cta': this.t('card_e_cta'),
+      'card-qml-title': this.t('card_qml_title'),
+      'card-qml-desc': this.t('card_qml_desc'),
+      'card-qml-tag': this.t('card_qml_tag'),
+      'card-qml-cta': this.t('card_qml_cta'),
+      'tutorToggle': this.t('ai_tutor_btn'),
+      'tutor-title': this.t('tutor_title'),
+      'tutor-online': this.t('tutor_online'),
+      'tutor-welcome-msg': this.t('tutor_welcome'),
+      'tutor-s1': this.t('tutor_q1'),
+      'tutor-s2': this.t('tutor_q2'),
+      'tutor-s3': this.t('tutor_q3'),
     };
     Object.entries(map).forEach(([id, text]) => {
       const el = document.getElementById(id);
@@ -647,14 +647,14 @@ const App = {
     document.getElementById('mainContent').scrollTop = 0;
 
     if (animate && typeof gsap !== 'undefined') {
-      gsap.fromTo(view, { opacity:0, y:18 }, { opacity:1, y:0, duration:0.4, ease:'power2.out', clearProps:'all' });
+      gsap.fromTo(view, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out', clearProps: 'all' });
     }
 
     // Home card animations
     if (module === 'home' && animate && typeof gsap !== 'undefined') {
-      gsap.from('.module-card', { opacity:0, y:24, duration:0.5, stagger:0.07, ease:'power2.out', clearProps:'all', delay:0.1 });
-      gsap.from('.stat-card',   { opacity:0, y:12, duration:0.4, stagger:0.05, ease:'power2.out', clearProps:'all' });
-      gsap.from('.hero-content', { opacity:0, x:-20, duration:0.6, ease:'power2.out', clearProps:'all' });
+      gsap.from('.module-card', { opacity: 0, y: 24, duration: 0.5, stagger: 0.07, ease: 'power2.out', clearProps: 'all', delay: 0.1 });
+      gsap.from('.stat-card', { opacity: 0, y: 12, duration: 0.4, stagger: 0.05, ease: 'power2.out', clearProps: 'all' });
+      gsap.from('.hero-content', { opacity: 0, x: -20, duration: 0.6, ease: 'power2.out', clearProps: 'all' });
     }
 
     this._renderProgress();
@@ -739,7 +739,7 @@ const App = {
   async handleSignIn() {
     const user = document.getElementById('signinUser').value.trim();
     const pass = document.getElementById('signinPass').value;
-    
+
     if (!user || !pass) return;
 
     let authSuccess = false;
@@ -777,11 +777,11 @@ const App = {
       localStorage.setItem('qv-active-user', user);
 
       if (usingRemote && remoteUserData) {
-        this.xp           = remoteUserData.xp           || 0;
-        this.level        = remoteUserData.level        || 1;
-        this.progress     = remoteUserData.progress     || {};
+        this.xp = remoteUserData.xp || 0;
+        this.level = remoteUserData.level || 1;
+        this.progress = remoteUserData.progress || {};
         this.achievements = new Set(remoteUserData.achievements || []);
-        this.dailyStreak  = remoteUserData.dailyStreak  || 0;
+        this.dailyStreak = remoteUserData.dailyStreak || 0;
         this.lastRiddleSolvedDate = remoteUserData.lastRiddleSolvedDate || '';
 
         this.users[user] = {
@@ -797,16 +797,17 @@ const App = {
         localStorage.setItem('qv-users', JSON.stringify(this.users));
       }
       this._loadStateLocal();
+      this._clearCachedModuleViews();
 
       this.updateAuthUI();
       this._renderXP();
       this._renderProgress();
       this.closeAuthModal();
-      
+
       // Clear forms
       document.getElementById('signinUser').value = '';
       document.getElementById('signinPass').value = '';
-      
+
       this.navigate('profile');
       this.unlockAchievement('account', 'Logged into Quantum Account successfully.', 'account');
     } else {
@@ -887,9 +888,10 @@ const App = {
       localStorage.setItem('qv-users', JSON.stringify(this.users));
 
       this._loadStateLocal();
+      this._clearCachedModuleViews();
       this.updateAuthUI();
       this.closeAuthModal();
-      
+
       // Clear signup form
       document.getElementById('signupUser').value = '';
       document.getElementById('signupPass').value = '';
@@ -900,7 +902,7 @@ const App = {
   },
 
   generateCertificate() {
-    const allModules = ['foundations','gates','algorithms','cryptography','error','qml'];
+    const allModules = ['foundations', 'gates', 'algorithms', 'cryptography', 'error', 'qml'];
     const allLessonsDone = allModules.every(m => this.isModuleRead(m));
     const allPerfect = allModules.every(m => this.achievements.has(`${m}-perfect`));
     // allHigh = scored >= 80% on every quiz (progress reaches 100 when score >= 80%)
@@ -944,13 +946,13 @@ const App = {
       ctx.strokeRect(26, 26, 848, 588);
 
       // Corner ornaments (L-brackets)
-      const corners = [[30,30],[870,30],[30,610],[870,610]];
-      const signs = [[1,1],[-1,1],[1,-1],[-1,-1]];
+      const corners = [[30, 30], [870, 30], [30, 610], [870, 610]];
+      const signs = [[1, 1], [-1, 1], [1, -1], [-1, -1]];
       corners.forEach(([cx, cy], i) => {
         const [sx, sy] = signs[i];
         ctx.strokeStyle = '#d4af37';
         ctx.lineWidth = 3;
-        ctx.beginPath(); ctx.moveTo(cx, cy + sy*22); ctx.lineTo(cx, cy); ctx.lineTo(cx + sx*22, cy); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(cx, cy + sy * 22); ctx.lineTo(cx, cy); ctx.lineTo(cx + sx * 22, cy); ctx.stroke();
       });
 
       // Top ribbon banner
@@ -1011,14 +1013,14 @@ const App = {
       const sealGrad = ctx.createRadialGradient(sealX, sealY, 10, sealX, sealY, sealR);
       sealGrad.addColorStop(0, 'rgba(212,175,55,0.35)');
       sealGrad.addColorStop(1, 'rgba(212,175,55,0.05)');
-      ctx.beginPath(); ctx.arc(sealX, sealY, sealR, 0, Math.PI*2);
+      ctx.beginPath(); ctx.arc(sealX, sealY, sealR, 0, Math.PI * 2);
       ctx.fillStyle = sealGrad;
       ctx.fill();
       ctx.strokeStyle = '#d4af37';
       ctx.lineWidth = 2;
       ctx.stroke();
       // Inner ring
-      ctx.beginPath(); ctx.arc(sealX, sealY, sealR - 8, 0, Math.PI*2);
+      ctx.beginPath(); ctx.arc(sealX, sealY, sealR - 8, 0, Math.PI * 2);
       ctx.strokeStyle = 'rgba(212,175,55,0.4)';
       ctx.lineWidth = 1;
       ctx.stroke();
@@ -1028,8 +1030,8 @@ const App = {
         ctx.strokeStyle = 'rgba(212,175,55,0.3)';
         ctx.lineWidth = 1;
         ctx.beginPath();
-        ctx.moveTo(sealX + Math.cos(angle)*18, sealY + Math.sin(angle)*18);
-        ctx.lineTo(sealX + Math.cos(angle)*(sealR-10), sealY + Math.sin(angle)*(sealR-10));
+        ctx.moveTo(sealX + Math.cos(angle) * 18, sealY + Math.sin(angle) * 18);
+        ctx.lineTo(sealX + Math.cos(angle) * (sealR - 10), sealY + Math.sin(angle) * (sealR - 10));
         ctx.stroke();
       }
       ctx.fillStyle = '#d4af37';
@@ -1053,7 +1055,7 @@ const App = {
       // Footer
       ctx.fillStyle = 'rgba(212,175,55,0.4)';
       ctx.font = "10px 'JetBrains Mono', monospace";
-      ctx.fillText(`GRANDMASTER ID: QV-GM-${Math.random().toString(36).substring(2,10).toUpperCase()} · ${new Date().toLocaleDateString()}`, 450, 608);
+      ctx.fillText(`GRANDMASTER ID: QV-GM-${Math.random().toString(36).substring(2, 10).toUpperCase()} · ${new Date().toLocaleDateString()}`, 450, 608);
 
     } else if (isHonours) {
       // \u2500\u2500 HONOURS CERTIFICATE (80%+ on all quizzes) \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
@@ -1080,12 +1082,12 @@ const App = {
       ctx.lineWidth = 2;
       ctx.strokeRect(26, 26, 848, 588);
 
-      const honCorners = [[30,30],[870,30],[30,610],[870,610]];
-      const honSigns = [[1,1],[-1,1],[1,-1],[-1,-1]];
+      const honCorners = [[30, 30], [870, 30], [30, 610], [870, 610]];
+      const honSigns = [[1, 1], [-1, 1], [1, -1], [-1, -1]];
       honCorners.forEach(([cx, cy], i) => {
         const [sx, sy] = honSigns[i];
         ctx.strokeStyle = '#5ba3d9'; ctx.lineWidth = 3;
-        ctx.beginPath(); ctx.moveTo(cx, cy + sy*22); ctx.lineTo(cx, cy); ctx.lineTo(cx + sx*22, cy); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(cx, cy + sy * 22); ctx.lineTo(cx, cy); ctx.lineTo(cx + sx * 22, cy); ctx.stroke();
       });
 
       const honRibGrad = ctx.createLinearGradient(0, 50, 0, 95);
@@ -1132,17 +1134,17 @@ const App = {
       const sX = 450, sY = 452, sR = 48;
       const sGrad = ctx.createRadialGradient(sX, sY, 8, sX, sY, sR);
       sGrad.addColorStop(0, 'rgba(91,163,217,0.30)'); sGrad.addColorStop(1, 'rgba(91,163,217,0.04)');
-      ctx.beginPath(); ctx.arc(sX, sY, sR, 0, Math.PI*2);
+      ctx.beginPath(); ctx.arc(sX, sY, sR, 0, Math.PI * 2);
       ctx.fillStyle = sGrad; ctx.fill();
       ctx.strokeStyle = '#5ba3d9'; ctx.lineWidth = 2; ctx.stroke();
-      ctx.beginPath(); ctx.arc(sX, sY, sR - 8, 0, Math.PI*2);
+      ctx.beginPath(); ctx.arc(sX, sY, sR - 8, 0, Math.PI * 2);
       ctx.strokeStyle = 'rgba(91,163,217,0.35)'; ctx.lineWidth = 1; ctx.stroke();
       for (let r = 0; r < 6; r++) {
         const angle = (r / 6) * Math.PI * 2;
         ctx.strokeStyle = 'rgba(91,163,217,0.25)'; ctx.lineWidth = 1;
         ctx.beginPath();
-        ctx.moveTo(sX + Math.cos(angle)*16, sY + Math.sin(angle)*16);
-        ctx.lineTo(sX + Math.cos(angle)*(sR-10), sY + Math.sin(angle)*(sR-10));
+        ctx.moveTo(sX + Math.cos(angle) * 16, sY + Math.sin(angle) * 16);
+        ctx.lineTo(sX + Math.cos(angle) * (sR - 10), sY + Math.sin(angle) * (sR - 10));
         ctx.stroke();
       }
       ctx.fillStyle = '#5ba3d9'; ctx.font = "800 10px 'Space Grotesk', sans-serif";
@@ -1158,7 +1160,7 @@ const App = {
       ctx.fillText('QUBITBOT AI', 245, 575); ctx.fillText('QUANTUMVERSE', 655, 575);
 
       ctx.fillStyle = 'rgba(91,163,217,0.4)'; ctx.font = "10px 'JetBrains Mono', monospace";
-      ctx.fillText(`HONOURS ID: QV-HON-${Math.random().toString(36).substring(2,10).toUpperCase()} | ${new Date().toLocaleDateString()}`, 450, 606);
+      ctx.fillText(`HONOURS ID: QV-HON-${Math.random().toString(36).substring(2, 10).toUpperCase()} | ${new Date().toLocaleDateString()}`, 450, 606);
 
     } else {
       // \u2500\u2500 STANDARD CERTIFICATE \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
@@ -1212,7 +1214,7 @@ const App = {
 
       ctx.fillStyle = 'rgba(255,255,255,0.4)';
       ctx.font = "11px 'JetBrains Mono', monospace";
-      ctx.fillText(`VERIFICATION ID: QV-${Math.random().toString(36).substring(2,10).toUpperCase()}`, 450, 490);
+      ctx.fillText(`VERIFICATION ID: QV-${Math.random().toString(36).substring(2, 10).toUpperCase()}`, 450, 490);
       ctx.fillText(`DATE: ${new Date().toLocaleDateString()}`, 450, 510);
 
       ctx.strokeStyle = 'rgba(255,255,255,0.2)';
@@ -1241,7 +1243,7 @@ const App = {
   handleSignOut() {
     this.activeUser = null;
     localStorage.removeItem('qv-active-user');
-    
+
     // Reset to default/guest state
     this.xp = 0;
     this.level = 1;
@@ -1251,11 +1253,27 @@ const App = {
     this.lastRiddleSolvedDate = '';
     this._saveState();
     this._loadStateLocal();
-    
+
+    // Module views (Foundations, Gates, Algorithms, etc.) cache their rendered
+    // HTML and only re-render when their container is empty (see navigate()).
+    // Without clearing them here, a module visited while signed in keeps
+    // showing that user's progress/checkmarks even after signing out.
+    this._clearCachedModuleViews();
+
     this.updateAuthUI();
     this._renderXP();
     this._renderProgress();
     this.navigate('home');
+  },
+
+  // Forces module views to re-render on next visit instead of showing
+  // stale, cached progress from a previous session/user.
+  _clearCachedModuleViews() {
+    document.querySelectorAll('.module-view').forEach(v => {
+      if (v.id !== 'view-home' && v.id !== 'view-profile') {
+        v.innerHTML = '';
+      }
+    });
   },
 
   changeProfileAvatar(newAvatar) {
@@ -1300,7 +1318,7 @@ const App = {
     const avatarKey = u.avatar || 'atom';
     const xp = this.xp;
     const level = this.level;
-    
+
     // Level progress calculations
     const currentLevelXP = xp % 1000;
     const levelProgress = (currentLevelXP / 1000) * 100;
@@ -1316,96 +1334,96 @@ const App = {
     const rankClass = level >= 5 ? 'rank-architect' : level >= 4 ? 'rank-designer' : level >= 3 ? 'rank-operator' : level >= 2 ? 'rank-superpositionist' : 'rank-novice';
 
     const achievementList = [
-      { 
-        id: 'welcome', 
-        icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:auto;"><circle cx="6" cy="12" r="3"/><circle cx="18" cy="12" r="3"/><line x1="9" y1="12" x2="15" y2="12"/><path d="M12 9a3 3 0 0 1 0 6"/></svg>`, 
-        name: 'First Entanglement', 
-        desc: 'Started learning QuantumVerse.' 
+      {
+        id: 'welcome',
+        icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:auto;"><circle cx="6" cy="12" r="3"/><circle cx="18" cy="12" r="3"/><line x1="9" y1="12" x2="15" y2="12"/><path d="M12 9a3 3 0 0 1 0 6"/></svg>`,
+        name: 'First Entanglement',
+        desc: 'Started learning QuantumVerse.'
       },
-      { 
-        id: 'quiz-perfect', 
-        icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:auto;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`, 
-        name: 'Coherent Mind', 
-        desc: 'Scored 100% on any quiz.' 
+      {
+        id: 'quiz-perfect',
+        icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:auto;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`,
+        name: 'Coherent Mind',
+        desc: 'Scored 100% on any quiz.'
       },
-      { 
-        id: 'all-modules', 
-        icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-pink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:auto;"><path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7z"/><path d="M3 20h18v2H3z"/></svg>`, 
-        name: 'Master of Qubits', 
-        desc: 'Completed all quantum modules.' 
+      {
+        id: 'all-modules',
+        icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-pink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:auto;"><path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7z"/><path d="M3 20h18v2H3z"/></svg>`,
+        name: 'Master of Qubits',
+        desc: 'Completed all quantum modules.'
       },
-      { 
-        id: 'ai-chat', 
-        icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:auto;"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`, 
-        name: 'Socratic Spark', 
-        desc: 'Asked the AI Tutor a question.' 
+      {
+        id: 'ai-chat',
+        icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:auto;"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`,
+        name: 'Socratic Spark',
+        desc: 'Asked the AI Tutor a question.'
       },
-      { 
-        id: 'account', 
-        icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:auto;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`, 
-        name: 'Superposed Identity', 
-        desc: 'Created a secure Quantum Profile.' 
+      {
+        id: 'account',
+        icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:auto;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`,
+        name: 'Superposed Identity',
+        desc: 'Created a secure Quantum Profile.'
       },
-      { 
-        id: 'perfect-bell', 
-        icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:auto;"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>`, 
-        name: 'Entanglement Creator', 
-        desc: 'Created a Bell state in the Circuit Lab.' 
+      {
+        id: 'perfect-bell',
+        icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:auto;"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>`,
+        name: 'Entanglement Creator',
+        desc: 'Created a Bell state in the Circuit Lab.'
       },
-      { 
-        id: 'qkd-secure', 
-        icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:auto;"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.778-7.778zm0 0L20 4m0 0h4m-4 0v4"/></svg>`, 
-        name: 'QKD Sentinel', 
-        desc: 'Secured a private key via BB84 protocol.' 
+      {
+        id: 'qkd-secure',
+        icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:auto;"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.778-7.778zm0 0L20 4m0 0h4m-4 0v4"/></svg>`,
+        name: 'QKD Sentinel',
+        desc: 'Secured a private key via BB84 protocol.'
       },
-      { 
-        id: 'error-fixed', 
-        icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:auto;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>`, 
-        name: 'Syndrome Buster', 
-        desc: 'Fixed bit-flip errors in the QEC lab.' 
+      {
+        id: 'error-fixed',
+        icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:auto;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>`,
+        name: 'Syndrome Buster',
+        desc: 'Fixed bit-flip errors in the QEC lab.'
       },
-      { 
-        id: 'vqe-run', 
-        icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-pink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:auto;"><path d="M3 3v18h18"/><path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/></svg>`, 
-        name: 'VQE Optimizer', 
-        desc: 'Optimized hybrid parameters in the QML lab.' 
+      {
+        id: 'vqe-run',
+        icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-pink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:auto;"><path d="M3 3v18h18"/><path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/></svg>`,
+        name: 'VQE Optimizer',
+        desc: 'Optimized hybrid parameters in the QML lab.'
       },
       // ── NEW ELITE ACHIEVEMENTS ─────────────────────────────────────────────
-      { 
-        id: 'max-level', 
-        icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:auto;"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>`, 
-        name: 'Quantum Architect', 
-        desc: 'Reached the maximum rank — Level 5+. True mastery!' 
+      {
+        id: 'max-level',
+        icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:auto;"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>`,
+        name: 'Quantum Architect',
+        desc: 'Reached the maximum rank — Level 5+. True mastery!'
       },
-      { 
-        id: 'quiz-grandmaster', 
-        icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:auto;"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>`, 
-        name: 'Quiz Grandmaster', 
-        desc: 'Achieved a perfect 100% on ALL 6 module quizzes!' 
+      {
+        id: 'quiz-grandmaster',
+        icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:auto;"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>`,
+        name: 'Quiz Grandmaster',
+        desc: 'Achieved a perfect 100% on ALL 6 module quizzes!'
       },
-      { 
-        id: 'course-complete', 
-        icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:auto;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`, 
-        name: 'Quantum Scholar', 
-        desc: 'Read and completed all 21 lessons across every module!' 
+      {
+        id: 'course-complete',
+        icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:auto;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`,
+        name: 'Quantum Scholar',
+        desc: 'Read and completed all 21 lessons across every module!'
       },
-      { 
-        id: 'streak-2', 
-        icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff9f43" stroke-width="2" style="display:block;margin:auto;"><path d="M12 2c0 0-4 4.5-4 8.5C8 12.8 9.8 15 12 15s4-2.2 4-4.5C16 6.5 12 2 12 2z"/><path d="M12 7c0 0-2 2-2 4.5 0 1 .8 1.8 1.8 1.8s1.8-.8 1.8-1.8c0-2.5-1.8-4.5-1.8-4.5z"/></svg>`, 
-        name: 'Streak Cadet', 
-        desc: 'Solved the Daily Quantum Challenge two days in a row.' 
+      {
+        id: 'streak-2',
+        icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff9f43" stroke-width="2" style="display:block;margin:auto;"><path d="M12 2c0 0-4 4.5-4 8.5C8 12.8 9.8 15 12 15s4-2.2 4-4.5C16 6.5 12 2 12 2z"/><path d="M12 7c0 0-2 2-2 4.5 0 1 .8 1.8 1.8 1.8s1.8-.8 1.8-1.8c0-2.5-1.8-4.5-1.8-4.5z"/></svg>`,
+        name: 'Streak Cadet',
+        desc: 'Solved the Daily Quantum Challenge two days in a row.'
       },
-      { 
-        id: 'streak-7', 
-        icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-pink)" stroke-width="2" style="display:block;margin:auto;"><path d="M12 2c0 0-4 4.5-4 8.5C8 12.8 9.8 15 12 15s4-2.2 4-4.5C16 6.5 12 2 12 2z"/><path d="M12 7c0 0-2 2-2 4.5 0 1 .8 1.8 1.8 1.8s1.8-.8 1.8-1.8c0-2.5-1.8-4.5-1.8-4.5z"/></svg>`, 
-        name: 'Coherence Streak', 
-        desc: 'Solved the Daily Quantum Challenge seven days in a row.' 
+      {
+        id: 'streak-7',
+        icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-pink)" stroke-width="2" style="display:block;margin:auto;"><path d="M12 2c0 0-4 4.5-4 8.5C8 12.8 9.8 15 12 15s4-2.2 4-4.5C16 6.5 12 2 12 2z"/><path d="M12 7c0 0-2 2-2 4.5 0 1 .8 1.8 1.8 1.8s1.8-.8 1.8-1.8c0-2.5-1.8-4.5-1.8-4.5z"/></svg>`,
+        name: 'Coherence Streak',
+        desc: 'Solved the Daily Quantum Challenge seven days in a row.'
       },
-      { 
-        id: 'streak-30', 
-        icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-gold)" stroke-width="2" style="display:block;margin:auto;"><path d="M12 2c0 0-4 4.5-4 8.5C8 12.8 9.8 15 12 15s4-2.2 4-4.5C16 6.5 12 2 12 2z"/><path d="M12 7c0 0-2 2-2 4.5 0 1 .8 1.8 1.8 1.8s1.8-.8 1.8-1.8c0-2.5-1.8-4.5-1.8-4.5z"/></svg>`, 
-        name: 'Quantum Sentinel', 
-        desc: 'Maintained a daily quantum challenge streak for 30 days!' 
+      {
+        id: 'streak-30',
+        icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-gold)" stroke-width="2" style="display:block;margin:auto;"><path d="M12 2c0 0-4 4.5-4 8.5C8 12.8 9.8 15 12 15s4-2.2 4-4.5C16 6.5 12 2 12 2z"/><path d="M12 7c0 0-2 2-2 4.5 0 1 .8 1.8 1.8 1.8s1.8-.8 1.8-1.8c0-2.5-1.8-4.5-1.8-4.5z"/></svg>`,
+        name: 'Quantum Sentinel',
+        desc: 'Maintained a daily quantum challenge streak for 30 days!'
       }
     ];
 
@@ -1464,7 +1482,7 @@ const App = {
     `;
 
     // Show certificate — 3 tiers: Standard / Honours / Grandmaster
-    const allModules = ['foundations','gates','algorithms','cryptography','error','qml'];
+    const allModules = ['foundations', 'gates', 'algorithms', 'cryptography', 'error', 'qml'];
     const allLessonsDone = allModules.every(m => this.isModuleRead(m));
     const totalLessons = 21;
     const allPerfect = allModules.every(m => this.achievements.has(`${m}-perfect`));
@@ -1544,7 +1562,7 @@ const App = {
           <div style="margin-bottom:1.5rem; width:100%;">
             <div style="font-size:0.68rem; color:var(--text-muted); margin-bottom:0.45rem; text-transform:uppercase; letter-spacing:0.06em; font-weight:700;">Change Quantum Avatar</div>
             <div class="avatar-selector" style="justify-content:center; gap:0.35rem; display:flex; flex-wrap:wrap; background:rgba(0,0,0,0.04); padding:0.4rem; border-radius:var(--radius-sm); border:1px solid var(--border);">
-              ${['atom','bloch','cat','chip','wave','entangled','lock','magnet'].map(av => `
+              ${['atom', 'bloch', 'cat', 'chip', 'wave', 'entangled', 'lock', 'magnet'].map(av => `
                 <div class="avatar-option ${av === avatarKey ? 'active' : ''}" style="padding:0; width:2.2rem; height:2.2rem; display:flex; align-items:center; justify-content:center; cursor:pointer;" onclick="App.changeProfileAvatar('${av}')">
                   ${this.getAvatarSVG(av, 20, 2)}
                 </div>
@@ -1613,12 +1631,12 @@ const App = {
 
   _renderModule(module, container) {
     const moduleMap = {
-      foundations:  typeof FoundationsModule  !== 'undefined' ? FoundationsModule  : null,
-      gates:        typeof GatesModule         !== 'undefined' ? GatesModule         : null,
-      algorithms:   typeof AlgorithmsModule    !== 'undefined' ? AlgorithmsModule    : null,
-      cryptography: typeof CryptographyModule  !== 'undefined' ? CryptographyModule  : null,
-      error:        typeof ErrorCorrectionModule !== 'undefined' ? ErrorCorrectionModule : null,
-      qml:          typeof QMLModule            !== 'undefined' ? QMLModule            : null,
+      foundations: typeof FoundationsModule !== 'undefined' ? FoundationsModule : null,
+      gates: typeof GatesModule !== 'undefined' ? GatesModule : null,
+      algorithms: typeof AlgorithmsModule !== 'undefined' ? AlgorithmsModule : null,
+      cryptography: typeof CryptographyModule !== 'undefined' ? CryptographyModule : null,
+      error: typeof ErrorCorrectionModule !== 'undefined' ? ErrorCorrectionModule : null,
+      qml: typeof QMLModule !== 'undefined' ? QMLModule : null,
     };
     const mod = moduleMap[module];
     if (mod && typeof mod.render === 'function') mod.render(container);
@@ -1635,7 +1653,7 @@ const App = {
       if (newLevel >= 5) {
         this.unlockAchievement('max-level', 'You reached the maximum rank — Quantum Architect (Level 5+)!', 'max-level');
       }
-      
+
       // Trigger Splashy Level Up Overlay
       const numEl = document.getElementById('levelUpNum');
       const rankEl = document.getElementById('levelUpRank');
@@ -1643,9 +1661,9 @@ const App = {
       if (numEl) numEl.textContent = newLevel;
       if (rankEl) {
         rankEl.textContent = newLevel >= 5 ? 'Quantum Architect' :
-                             newLevel >= 4 ? 'Algorithm Designer' :
-                             newLevel >= 3 ? 'Gate Operator' :
-                             newLevel >= 2 ? 'Superpositionist' : 'Quantum Novice';
+          newLevel >= 4 ? 'Algorithm Designer' :
+            newLevel >= 3 ? 'Gate Operator' :
+              newLevel >= 2 ? 'Superpositionist' : 'Quantum Novice';
       }
       if (overlay) {
         overlay.classList.remove('hidden');
@@ -1665,8 +1683,9 @@ const App = {
     const streakCountEl = document.getElementById('streakCount');
     if (xpEl) {
       if (typeof gsap !== 'undefined' && xpEl._xpVal !== undefined) {
-        gsap.to(xpEl, { textContent: this.xp, duration:0.4, ease:'power1.out', snap:{textContent:1},
-          onUpdate: function(){ xpEl.textContent = Math.round(this.targets()[0].textContent); }
+        gsap.to(xpEl, {
+          textContent: this.xp, duration: 0.4, ease: 'power1.out', snap: { textContent: 1 },
+          onUpdate: function () { xpEl.textContent = Math.round(this.targets()[0].textContent); }
         });
       } else {
         xpEl.textContent = this.xp;
@@ -1701,13 +1720,13 @@ const App = {
   markLessonRead(module, idx, btn) {
     if (!this.visitedLessons) this.visitedLessons = {};
     if (!this.visitedLessons[module]) this.visitedLessons[module] = [];
-    
+
     if (!this.visitedLessons[module].includes(idx)) {
       this.visitedLessons[module].push(idx);
       this.addXP(15);
       this._saveState();
       this._renderProgress();
-      
+
       if (btn) {
         btn.disabled = true;
         btn.style.background = 'rgba(16, 185, 129, 0.1)';
@@ -1715,7 +1734,7 @@ const App = {
         btn.style.color = '#10b981';
         btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:6px;"><polyline points="20 6 9 17 4 12"/></svg> Concept Mastered (+15 XP earned)`;
       }
-      
+
       this.refreshModuleQuizSection(module);
 
       // Auto-transition to next lesson or module
@@ -1758,7 +1777,7 @@ const App = {
       }
 
       // Check if entire course is now complete
-      const allModules = ['foundations','gates','algorithms','cryptography','error','qml'];
+      const allModules = ['foundations', 'gates', 'algorithms', 'cryptography', 'error', 'qml'];
       const allDone = allModules.every(m => this.isModuleRead(m));
       if (allDone) {
         this.unlockAchievement('course-complete', 'You completed all 21 lessons across every module!', 'course-complete');
@@ -1852,7 +1871,7 @@ const App = {
         const completed = visited.includes(i);
         const checkIcon = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle; margin-right:2px;"><polyline points="20 6 9 17 4 12"/></svg>`;
         const lockIcon = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle; margin-right:2px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`;
-        
+
         checklistHTML += `
           <div class="quiz-check-item" style="display:flex; align-items:center; gap:8px; font-size:0.85rem; color:${completed ? 'var(--text-primary)' : 'var(--text-muted)'};">
             <span style="display:flex; align-items:center;">
@@ -1897,7 +1916,7 @@ const App = {
   },
 
   _renderProgress() {
-    const modules = ['foundations','gates','algorithms','cryptography','error','qml'];
+    const modules = ['foundations', 'gates', 'algorithms', 'cryptography', 'error', 'qml'];
     modules.forEach(m => {
       const lessonsCount = { foundations: 5, gates: 4, algorithms: 4, cryptography: 3, error: 2, qml: 4 }[m];
       const visitedCount = this.visitedLessons && this.visitedLessons[m] ? this.visitedLessons[m].length : 0;
@@ -1924,7 +1943,7 @@ const App = {
       const label = document.getElementById(`prog-label-${m}`);
       if (label) {
         const transKey = m === 'foundations' ? 'nav_foundations' :
-                         m === 'qml' ? 'nav_qml' : `nav_${m}`;
+          m === 'qml' ? 'nav_qml' : `nav_${m}`;
         const baseName = (m === 'foundations' || m === 'qml')
           ? this.t(transKey)
           : this.t(transKey).split(' ')[0];
@@ -1937,10 +1956,10 @@ const App = {
 
       // Homepage card CTA update
       const ctaId = m === 'foundations' ? 'card-f-cta' :
-                    m === 'gates' ? 'card-g-cta' :
-                    m === 'algorithms' ? 'card-a-cta' :
-                    m === 'cryptography' ? 'card-c-cta' :
-                    m === 'error' ? 'card-e-cta' : 'card-qml-cta';
+        m === 'gates' ? 'card-g-cta' :
+          m === 'algorithms' ? 'card-a-cta' :
+            m === 'cryptography' ? 'card-c-cta' :
+              m === 'error' ? 'card-e-cta' : 'card-qml-cta';
       const cta = document.getElementById(ctaId);
       if (cta) {
         if (modulePct === 100) {
@@ -1972,7 +1991,7 @@ const App = {
     if (this.achievements.has(id)) return;
     this.achievements.add(id);
     this._saveState();
-    
+
     // Fetch matching SVG icon from list if exists to keep SVGs in toasts
     let toastIcon = icon;
     const matched = [
@@ -1992,13 +2011,13 @@ const App = {
       { id: 'streak-7', icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-pink)" stroke-width="2" style="display:block;margin:auto;"><path d="M12 2c0 0-4 4.5-4 8.5C8 12.8 9.8 15 12 15s4-2.2 4-4.5C16 6.5 12 2 12 2z"/><path d="M12 7c0 0-2 2-2 4.5 0 1 .8 1.8 1.8 1.8s1.8-.8 1.8-1.8c0-2.5-1.8-4.5-1.8-4.5z"/></svg>` },
       { id: 'streak-30', icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-gold)" stroke-width="2" style="display:block;margin:auto;"><path d="M12 2c0 0-4 4.5-4 8.5C8 12.8 9.8 15 12 15s4-2.2 4-4.5C16 6.5 12 2 12 2z"/><path d="M12 7c0 0-2 2-2 4.5 0 1 .8 1.8 1.8 1.8s1.8-.8 1.8-1.8c0-2.5-1.8-4.5-1.8-4.5z"/></svg>` }
     ].find(x => x.id === id);
-    
+
     if (matched) {
       toastIcon = matched.icon;
     } else {
       toastIcon = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:auto;"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.45 1-1 1H4v2h16v-2h-5c-.55 0-1-.45-1-1v-2.34"/><path d="M12 2a6 6 0 0 1 6 6v3.5c0 1.66-1.34 3-3 3H9a3 3 0 0 1-3-3V8a6 6 0 0 1 6-6z"/></svg>`;
     }
-    
+
     this._showToast(desc, toastIcon);
   },
 
@@ -2055,10 +2074,12 @@ const App = {
 
     if (typeof gsap !== 'undefined') {
       gsap.fromTo(toast,
-        { x:80, opacity:0 },
-        { x:0, opacity:1, duration:0.5, ease:'back.out(1.7)',
+        { x: 80, opacity: 0 },
+        {
+          x: 0, opacity: 1, duration: 0.5, ease: 'back.out(1.7)',
           onComplete: () => {
-            gsap.to(toast, { opacity:0, x:60, duration:0.4, delay:3.5,
+            gsap.to(toast, {
+              opacity: 0, x: 60, duration: 0.4, delay: 3.5,
               onComplete: () => toast.classList.remove('show')
             });
           }
@@ -2075,44 +2096,44 @@ const App = {
     if (!canvas || typeof THREE === 'undefined') return;
 
     const rect = canvas.parentElement.getBoundingClientRect();
-    canvas.width  = canvas.parentElement.offsetWidth  || 1200;
+    canvas.width = canvas.parentElement.offsetWidth || 1200;
     canvas.height = canvas.parentElement.offsetHeight || 420;
 
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha:true, antialias:true });
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
     renderer.setSize(canvas.width, canvas.height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    const scene  = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(60, canvas.width/canvas.height, 0.1, 100);
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, canvas.width / canvas.height, 0.1, 100);
     camera.position.z = 5;
 
     // Create 180 particles representing qubits
     const N = 180;
     const geo = new THREE.BufferGeometry();
-    const positions  = new Float32Array(N * 3);
-    const phases     = new Float32Array(N);
-    const speeds     = new Float32Array(N);
-    const colors     = new Float32Array(N * 3);
+    const positions = new Float32Array(N * 3);
+    const phases = new Float32Array(N);
+    const speeds = new Float32Array(N);
+    const colors = new Float32Array(N * 3);
 
     for (let i = 0; i < N; i++) {
-      positions[i*3]   = (Math.random() - 0.5) * 18;
-      positions[i*3+1] = (Math.random() - 0.5) * 8;
-      positions[i*3+2] = (Math.random() - 0.5) * 4;
-      phases[i]  = Math.random() * Math.PI * 2;
-      speeds[i]  = 0.3 + Math.random() * 0.8;
+      positions[i * 3] = (Math.random() - 0.5) * 18;
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 8;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 4;
+      phases[i] = Math.random() * Math.PI * 2;
+      speeds[i] = 0.3 + Math.random() * 0.8;
 
       // Color: mix between cyan (0,212,255) and violet (139,92,246)
       const mix = Math.random();
-      colors[i*3]   = (mix * 139 + (1-mix) * 0)   / 255;
-      colors[i*3+1] = (mix *  92 + (1-mix) * 212)  / 255;
-      colors[i*3+2] = (mix * 246 + (1-mix) * 255)  / 255;
+      colors[i * 3] = (mix * 139 + (1 - mix) * 0) / 255;
+      colors[i * 3 + 1] = (mix * 92 + (1 - mix) * 212) / 255;
+      colors[i * 3 + 2] = (mix * 246 + (1 - mix) * 255) / 255;
     }
     geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    geo.setAttribute('color',    new THREE.BufferAttribute(colors, 3));
+    geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
     const mat = new THREE.PointsMaterial({
-      size:0.05, vertexColors:true, transparent:true, opacity:0.7,
-      sizeAttenuation:true
+      size: 0.05, vertexColors: true, transparent: true, opacity: 0.7,
+      sizeAttenuation: true
     });
     const points = new THREE.Points(geo, mat);
     scene.add(points);
@@ -2124,12 +2145,12 @@ const App = {
       const pos = geo.attributes.position.array;
       for (let i = 0; i < N; i++) {
         // Wave motion — each particle oscillates (quantum uncertainty)
-        pos[i*3+1] += Math.sin(t * speeds[i] + phases[i]) * 0.004;
+        pos[i * 3 + 1] += Math.sin(t * speeds[i] + phases[i]) * 0.004;
         // Slow drift
-        pos[i*3]   += Math.cos(t * 0.1 + phases[i] * 0.5) * 0.001;
+        pos[i * 3] += Math.cos(t * 0.1 + phases[i] * 0.5) * 0.001;
         // Wrap horizontally
-        if (pos[i*3] > 9)  pos[i*3] = -9;
-        if (pos[i*3] < -9) pos[i*3] =  9;
+        if (pos[i * 3] > 9) pos[i * 3] = -9;
+        if (pos[i * 3] < -9) pos[i * 3] = 9;
       }
       geo.attributes.position.needsUpdate = true;
 
@@ -2208,7 +2229,7 @@ const App = {
 
   applyGateToSandbox(gate) {
     const nextState = this._applyGateMath(gate, this.sandbox.theta, this.sandbox.phi);
-    
+
     this.sandbox.theta = nextState.theta;
     this.sandbox.phi = nextState.phi;
 
@@ -2226,7 +2247,7 @@ const App = {
   _applyGateMath(gate, theta, phi) {
     const t = (theta * Math.PI) / 180;
     const p = (phi * Math.PI) / 180;
-    
+
     let x = Math.sin(t) * Math.cos(p);
     let y = Math.sin(t) * Math.sin(p);
     let z = Math.cos(t);
@@ -2253,7 +2274,7 @@ const App = {
 
     zNew = Math.max(-1, Math.min(1, zNew));
     const newTheta = Math.round((Math.acos(zNew) * 180) / Math.PI);
-    
+
     let newPhi = Math.round((Math.atan2(yNew, xNew) * 180) / Math.PI);
     if (newPhi < 0) newPhi += 360;
 
@@ -2322,8 +2343,8 @@ const App = {
 
     // AI Tutor open/close
     const tutorToggle = document.getElementById('tutorToggle');
-    const tutorClose  = document.getElementById('tutorClose');
-    const tutorPanel  = document.getElementById('tutorPanel');
+    const tutorClose = document.getElementById('tutorClose');
+    const tutorPanel = document.getElementById('tutorPanel');
     if (tutorToggle) tutorToggle.addEventListener('click', () => {
       if (tutorPanel) {
         tutorPanel.classList.toggle('open');
@@ -2381,10 +2402,10 @@ const App = {
   _searchActiveIndex: -1,
 
   _initSearch() {
-    const overlay  = document.getElementById('searchOverlay');
-    const input    = document.getElementById('searchInput');
-    const results  = document.getElementById('searchResults');
-    const toggle   = document.getElementById('headerSearch');
+    const overlay = document.getElementById('searchOverlay');
+    const input = document.getElementById('searchInput');
+    const results = document.getElementById('searchResults');
+    const toggle = document.getElementById('headerSearch');
     if (!overlay || !input || !results || !toggle) return;
 
     toggle.addEventListener('click', () => this._toggleSearch(true));
@@ -2408,14 +2429,14 @@ const App = {
 
       const moduleIcons = {
         foundations: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><ellipse cx="12" cy="12" rx="11" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="11" ry="4" transform="rotate(120 12 12)"/></svg>`,
-        gates:       `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/></svg>`,
-        algorithms:  `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"/><path d="M12 12V8"/></svg>`,
-        cryptography:`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`,
-        error:       `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
-        qml:         `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>`,
+        gates: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/></svg>`,
+        algorithms: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"/><path d="M12 12V8"/></svg>`,
+        cryptography: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`,
+        error: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+        qml: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>`,
       };
 
-      const highlight = (text) => text.replace(new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi'), '<mark>$1</mark>');
+      const highlight = (text) => text.replace(new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi'), '<mark>$1</mark>');
 
       results.innerHTML = hits.map((item, i) => `
         <div class="search-result-item" data-module="${item.module}" data-idx="${i}">
@@ -2459,7 +2480,7 @@ const App = {
 
   _toggleSearch(open) {
     const overlay = document.getElementById('searchOverlay');
-    const input   = document.getElementById('searchInput');
+    const input = document.getElementById('searchInput');
     if (!overlay) return;
     overlay.classList.toggle('open', open);
     if (open) { setTimeout(() => input && input.focus(), 50); }
@@ -2468,7 +2489,7 @@ const App = {
 
   // ── Keyboard Shortcuts ──────────────────────────────────────────────────
   _initKeyboardShortcuts() {
-    const moduleMap = { '1':'foundations', '2':'gates', '3':'algorithms', '4':'cryptography', '5':'error', '6':'qml' };
+    const moduleMap = { '1': 'foundations', '2': 'gates', '3': 'algorithms', '4': 'cryptography', '5': 'error', '6': 'qml' };
 
     document.addEventListener('keydown', (e) => {
       // Ignore if user is typing in an input/textarea/select/contenteditable
@@ -2526,10 +2547,10 @@ const App = {
 
   // ── Daily Quantum Fact Card ─────────────────────────────────────────────
   renderQuantumFact() {
-    const tagEl   = document.getElementById('qfTag');
-    const textEl  = document.getElementById('qfText');
-    const srcEl   = document.getElementById('qfSource');
-    const dateEl  = document.getElementById('qfDatePill');
+    const tagEl = document.getElementById('qfTag');
+    const textEl = document.getElementById('qfText');
+    const srcEl = document.getElementById('qfSource');
+    const dateEl = document.getElementById('qfDatePill');
     if (!tagEl || !textEl) return;
 
     const facts = [
@@ -2592,15 +2613,15 @@ const App = {
 
     // Colour the tag based on category
     const tagColors = {
-      'Superposition':'rgba(0,212,255,0.15)', 'Entanglement':'rgba(238,109,79,0.15)',
-      'Quantum Speedup':'rgba(78,205,196,0.15)', 'Cryptography':'rgba(212,175,55,0.15)',
-      'Quantum Supremacy':'rgba(238,109,79,0.15)', 'No-Cloning Theorem':'rgba(154,62,38,0.15)',
-      'Decoherence':'rgba(99,110,114,0.2)', 'Hadamard Gate':'rgba(0,212,255,0.15)',
+      'Superposition': 'rgba(0,212,255,0.15)', 'Entanglement': 'rgba(238,109,79,0.15)',
+      'Quantum Speedup': 'rgba(78,205,196,0.15)', 'Cryptography': 'rgba(212,175,55,0.15)',
+      'Quantum Supremacy': 'rgba(238,109,79,0.15)', 'No-Cloning Theorem': 'rgba(154,62,38,0.15)',
+      'Decoherence': 'rgba(99,110,114,0.2)', 'Hadamard Gate': 'rgba(0,212,255,0.15)',
     };
     const tagBgr = tagColors[fact.tag] || 'rgba(99,62,154,0.15)';
     tagEl.style.background = tagBgr;
     tagEl.style.color = 'var(--accent-cyan)';
-    tagEl.style.borderColor = tagBgr.replace('0.15','0.4');
+    tagEl.style.borderColor = tagBgr.replace('0.15', '0.4');
     tagEl.textContent = fact.tag;
     textEl.textContent = fact.text;
     if (srcEl) srcEl.textContent = fact.source ? `— ${fact.source}` : '';
@@ -2617,18 +2638,30 @@ const App = {
     if (!track) return;
 
     const modules = [
-      { id: 'foundations', label: 'Quantum\nFoundations', color: 'var(--accent-cyan)',
-        icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><ellipse cx="12" cy="12" rx="11" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="11" ry="4" transform="rotate(120 12 12)"/></svg>` },
-      { id: 'gates', label: 'Gates &\nCircuits', color: 'var(--accent-orange)',
-        icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/></svg>` },
-      { id: 'algorithms', label: 'Quantum\nAlgorithms', color: 'var(--accent-pink)',
-        icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"/><path d="M12 12V8"/></svg>` },
-      { id: 'cryptography', label: 'Quantum\nCrypto', color: 'var(--accent-gold)',
-        icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>` },
-      { id: 'error', label: 'Error\nCorrection', color: 'var(--accent-green)',
-        icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>` },
-      { id: 'qml', label: 'Quantum\nML', color: 'var(--accent-purple)',
-        icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/></svg>` },
+      {
+        id: 'foundations', label: 'Quantum\nFoundations', color: 'var(--accent-cyan)',
+        icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><ellipse cx="12" cy="12" rx="11" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="11" ry="4" transform="rotate(120 12 12)"/></svg>`
+      },
+      {
+        id: 'gates', label: 'Gates &\nCircuits', color: 'var(--accent-orange)',
+        icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/></svg>`
+      },
+      {
+        id: 'algorithms', label: 'Quantum\nAlgorithms', color: 'var(--accent-pink)',
+        icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"/><path d="M12 12V8"/></svg>`
+      },
+      {
+        id: 'cryptography', label: 'Quantum\nCrypto', color: 'var(--accent-gold)',
+        icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`
+      },
+      {
+        id: 'error', label: 'Error\nCorrection', color: 'var(--accent-green)',
+        icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>`
+      },
+      {
+        id: 'qml', label: 'Quantum\nML', color: 'var(--accent-purple)',
+        icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/></svg>`
+      },
     ];
 
     const circumference = 2 * Math.PI * 29; // r=29 on 64px circle
@@ -2824,7 +2857,7 @@ const App = {
       feedbackEl.classList.remove('hidden');
 
       this.addXP(15);
-      
+
       const todayStr = new Date().toDateString();
       const yesterday = new Date();
       yesterday.setDate(yesterday.getDate() - 1);
@@ -2856,7 +2889,7 @@ const App = {
       feedbackEl.className = "riddle-feedback error-text";
       feedbackEl.innerHTML = `❌ Incorrect. Try again!`;
       feedbackEl.classList.remove('hidden');
-      
+
       const btn = document.querySelectorAll('.riddle-choice-btn')[choiceIndex];
       if (btn) {
         btn.classList.add('wrong');
@@ -2885,4 +2918,3 @@ window.App = App;
 
 // ── Kick Off ──────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => App.init());
-
