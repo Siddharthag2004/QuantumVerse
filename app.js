@@ -265,7 +265,8 @@ function drawCuteMouse(g, x, y, scale = 1, color = '#94a3b8', label = '', angle 
 const App = {
 
   // ── State ──────────────────────────────────────────────────────────────
-  state: JSON.parse(localStorage.getItem('qv-state') || '{}'),
+  // NOTE: guest (signed-out) progress is intentionally NOT persisted.
+  // Only signed-in users' progress is saved (see _saveState/_loadStateLocal).
   lang: localStorage.getItem('qv-lang') || 'en',
   darkMode: localStorage.getItem('qv-dark') !== 'false', // default dark
   xp: 0, level: 1, progress: {}, achievements: new Set(), visitedLessons: {},
@@ -314,14 +315,14 @@ const App = {
       this.dailyStreak = u.dailyStreak || 0;
       this.lastRiddleSolvedDate = u.lastRiddleSolvedDate || '';
     } else {
-      const s = this.state;
-      this.xp = s.xp || 0;
-      this.level = s.level || 1;
-      this.progress = s.progress || {};
-      this.achievements = new Set(s.achievements || []);
-      this.visitedLessons = s.visitedLessons || {};
-      this.dailyStreak = s.dailyStreak || 0;
-      this.lastRiddleSolvedDate = s.lastRiddleSolvedDate || '';
+      // Guests always start fresh — progress is only saved for signed-in users.
+      this.xp = 0;
+      this.level = 1;
+      this.progress = {};
+      this.achievements = new Set();
+      this.visitedLessons = {};
+      this.dailyStreak = 0;
+      this.lastRiddleSolvedDate = '';
     }
 
     // Validate daily streak
@@ -373,15 +374,6 @@ const App = {
   },
 
   _saveState() {
-    const stateObj = {
-      xp: this.xp, level: this.level,
-      progress: this.progress,
-      achievements: [...this.achievements],
-      visitedLessons: this.visitedLessons,
-      dailyStreak: this.dailyStreak,
-      lastRiddleSolvedDate: this.lastRiddleSolvedDate
-    };
-
     if (this.activeUser) {
       if (!this.users[this.activeUser]) this.users[this.activeUser] = {};
       this.users[this.activeUser].xp = this.xp;
@@ -408,10 +400,8 @@ const App = {
           lastRiddleSolvedDate: this.lastRiddleSolvedDate
         })
       }).catch(err => console.warn('Sync server unreachable:', err));
-    } else {
-      this.state = stateObj;
-      localStorage.setItem('qv-state', JSON.stringify(this.state));
     }
+    // Guests: intentionally not persisted — progress only sticks after signing in.
     localStorage.setItem('qv-lang', this.lang);
   },
 
@@ -678,6 +668,7 @@ const App = {
         </button>
       `;
     }
+    this._renderGuestBanner();
   },
 
   showAuthModal() {
@@ -2543,6 +2534,30 @@ const App = {
   renderHomeInteractive() {
     this.renderDailyRiddle();
     this.renderQuantumFact();
+    this._renderGuestBanner();
+  },
+
+  // ── Guest sign-in nudge ──────────────────────────────────────────────────
+  // Shown only on the home page for signed-out visitors, since guest
+  // progress is no longer persisted across reloads (see _saveState).
+  _renderGuestBanner() {
+    const el = document.getElementById('guest-banner');
+    if (!el) return;
+
+    if (this.activeUser) {
+      el.innerHTML = '';
+      return;
+    }
+
+    el.innerHTML = `
+      <div class="guest-banner-bar">
+        <span class="guest-banner-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </span>
+        <span class="guest-banner-text">You're browsing as a guest — your XP and lesson progress won't be saved. Sign in to keep it.</span>
+        <button class="guest-banner-btn" onclick="App.showAuthModal()">Sign In / Sign Up</button>
+      </div>
+    `;
   },
 
   // ── Daily Quantum Fact Card ─────────────────────────────────────────────
@@ -2811,7 +2826,7 @@ const App = {
     const todayStr = new Date().toDateString();
     this.currentDailyRiddle = this.getOrGenerateDailyRiddle(todayStr);
 
-    const isSolved = this.state.lastRiddleSolvedDate === todayStr || (this.activeUser && this.users[this.activeUser] && this.users[this.activeUser].lastRiddleSolvedDate === todayStr);
+    const isSolved = this.lastRiddleSolvedDate === todayStr;
 
     if (isSolved) {
       container.innerHTML = `
@@ -2871,8 +2886,6 @@ const App = {
       }
 
       this.lastRiddleSolvedDate = todayStr;
-      this.state.lastRiddleSolvedDate = todayStr;
-      this.state.dailyStreak = this.dailyStreak;
 
       if (this.activeUser && this.users[this.activeUser]) {
         this.users[this.activeUser].lastRiddleSolvedDate = todayStr;

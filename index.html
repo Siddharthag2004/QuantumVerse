@@ -1,17 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>QuantumVerse | Interactive Quantum Computing Education</title>
-  <meta name="description" content="Learn quantum computing through interactive visualizations, circuit builders, VQE simulators, QAOA demos, and gamified quizzes. From qubits to Quantum ML — free, browser-based, no install required." />
-  <meta name="keywords" content="quantum computing, quantum education, qubits, quantum gates, Grover algorithm, BB84, quantum error correction, quantum machine learning, VQE, QAOA, variational quantum" />
+  <meta name="description"
+    content="Learn quantum computing through interactive visualizations, circuit builders, VQE simulators, QAOA demos, and gamified quizzes. From qubits to Quantum ML — free, browser-based, no install required." />
+  <meta name="keywords"
+    content="quantum computing, quantum education, qubits, quantum gates, Grover algorithm, BB84, quantum error correction, quantum machine learning, VQE, QAOA, variational quantum" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
   <!-- ⚡ Theme init — must run BEFORE stylesheet to prevent flash of dark mode -->
   <script>
-    (function() {
+    (function () {
       var dark = localStorage.getItem('qv-dark');
       // Default is dark (null means first visit). Apply light-mode only if explicitly saved as 'false'.
       if (dark === 'false') {
@@ -22,7 +27,20 @@
   <link rel="stylesheet" href="style.css" />
   <!-- Tutor typing dot animation -->
   <style>
-    @keyframes tutorDot { 0%,80%,100%{opacity:0.2;transform:scale(0.8)} 40%{opacity:1;transform:scale(1.1)} }
+    @keyframes tutorDot {
+
+      0%,
+      80%,
+      100% {
+        opacity: 0.2;
+        transform: scale(0.8)
+      }
+
+      40% {
+        opacity: 1;
+        transform: scale(1.1)
+      }
+    }
   </style>
   <!-- Local libraries -->
   <script src="assets/three.min.js"></script>
@@ -30,24 +48,27 @@
   <script src="assets/gsap.min.js"></script>
   <script src="assets/ScrollTrigger.min.js"></script>
 </head>
+
 <body>
 
   <!-- ── SPLASH ─────────────────────────────────────────────── -->
   <div id="splash">
     <div id="splashLogo">⟨ψ|</div>
     <div id="splashTitle">QuantumVerse</div>
-    <div class="splash-bar-wrap"><div id="splashBar"></div></div>
+    <div class="splash-bar-wrap">
+      <div id="splashBar"></div>
+    </div>
     <div id="splashText">Initializing quantum simulator…</div>
     <div class="splash-tagline">Interactive Quantum Journey</div>
   </div>
   <!-- ⚡ Start loading bar immediately — don't wait for all scripts -->
   <script>
-    (function() {
+    (function () {
       var bar = document.getElementById('splashBar');
       var txt = document.getElementById('splashText');
-      var steps = ['Loading quantum engine…','Calibrating Bloch spheres…','Entangling qubits…','Superposing wave functions…'];
+      var steps = ['Loading quantum engine…', 'Calibrating Bloch spheres…', 'Entangling qubits…', 'Superposing wave functions…'];
       var w = 0;
-      var iv = setInterval(function() {
+      var iv = setInterval(function () {
         w = Math.min(w + 1, 85); // fill to 85% while scripts load, the rest handled by App.init
         if (bar) bar.style.width = w + '%';
         var idx = Math.min(Math.floor(w / 22), steps.length - 1);
@@ -65,7 +86,12 @@
     <header id="topbar">
       <div class="topbar-left">
         <button id="menuToggle" aria-label="Toggle sidebar">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
         </button>
         <div class="brand" onclick="App.navigate('home')" style="cursor: pointer;">
           <span class="brand-icon">⟨ψ|</span>
@@ -78,21 +104,25 @@
           <span id="xpCount">0</span> <span id="xpLabel">XP</span>
           <div class="level-chip" id="levelBadge">Lv.1</div>
         </div>
-        <div class="streak-badge" id="streakBadge" title="Daily Challenge Streak!" onclick="App.navigateToDailyRiddle()" style="cursor: pointer;">
+        <div class="streak-badge" id="streakBadge" title="Daily Challenge Streak!" onclick="App.navigateToDailyRiddle()"
+          style="cursor: pointer;">
           <span class="streak-icon">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2C12 2 7 8 7 13C7 15.8 9.2 18 12 18C14.8 18 17 15.8 17 13C17 8 12 2 12 2Z" fill="url(#fireGrad1)" stroke="none"/>
-              <path d="M12 8C12 8 9.5 11.5 9.5 13.5C9.5 14.9 10.6 16 12 16C13.4 16 14.5 14.9 14.5 13.5C14.5 11.5 12 8 12 8Z" fill="url(#fireGrad2)" stroke="none"/>
-              <ellipse cx="12" cy="18.5" rx="3" ry="1" fill="rgba(255,159,67,0.25)" stroke="none"/>
+              <path d="M12 2C12 2 7 8 7 13C7 15.8 9.2 18 12 18C14.8 18 17 15.8 17 13C17 8 12 2 12 2Z"
+                fill="url(#fireGrad1)" stroke="none" />
+              <path
+                d="M12 8C12 8 9.5 11.5 9.5 13.5C9.5 14.9 10.6 16 12 16C13.4 16 14.5 14.9 14.5 13.5C14.5 11.5 12 8 12 8Z"
+                fill="url(#fireGrad2)" stroke="none" />
+              <ellipse cx="12" cy="18.5" rx="3" ry="1" fill="rgba(255,159,67,0.25)" stroke="none" />
               <defs>
                 <linearGradient id="fireGrad1" x1="12" y1="2" x2="12" y2="18" gradientUnits="userSpaceOnUse">
-                  <stop offset="0%" stop-color="#ff4d00"/>
-                  <stop offset="60%" stop-color="#ff9f43"/>
-                  <stop offset="100%" stop-color="#ffd32a"/>
+                  <stop offset="0%" stop-color="#ff4d00" />
+                  <stop offset="60%" stop-color="#ff9f43" />
+                  <stop offset="100%" stop-color="#ffd32a" />
                 </linearGradient>
                 <linearGradient id="fireGrad2" x1="12" y1="8" x2="12" y2="16" gradientUnits="userSpaceOnUse">
-                  <stop offset="0%" stop-color="#fff3cd"/>
-                  <stop offset="100%" stop-color="#ffdd59"/>
+                  <stop offset="0%" stop-color="#fff3cd" />
+                  <stop offset="100%" stop-color="#ffdd59" />
                 </linearGradient>
               </defs>
             </svg>
@@ -102,7 +132,11 @@
       </div>
       <div class="topbar-right">
         <button class="header-search" id="headerSearch" aria-label="Search QuantumVerse" title="Search lessons (Cmd+K)">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" style="display:block;">
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
           <span class="search-placeholder">Search quantum topics...</span>
           <kbd class="search-kbd">⌘K</kbd>
         </button>
@@ -111,11 +145,21 @@
         </button>
         <div id="authContainer" style="display:inline-flex; align-items:center; margin-right:0.25rem;"></div>
         <button id="tutorToggle" aria-label="Open AI Tutor" style="display:inline-flex; align-items:center; gap:6px;">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M12 2v2"/><path d="M5 21v2"/><path d="M19 21v2"/><circle cx="12" cy="7" r="3"/><line x1="9" y1="16" x2="9.01" y2="16"/><line x1="15" y1="16" x2="15.01" y2="16"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" style="display:block;">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+            <path d="M12 2v2" />
+            <path d="M5 21v2" />
+            <path d="M19 21v2" />
+            <circle cx="12" cy="7" r="3" />
+            <line x1="9" y1="16" x2="9.01" y2="16" />
+            <line x1="15" y1="16" x2="15.01" y2="16" />
+          </svg>
           AI Tutor
         </button>
         <!-- Keyboard shortcuts help button -->
-        <button id="shortcutsToggle" aria-label="Keyboard shortcuts" title="Keyboard shortcuts (?)" style="padding:0 10px; font-size:1rem; font-weight:600; opacity:0.6;">?</button>
+        <button id="shortcutsToggle" aria-label="Keyboard shortcuts" title="Keyboard shortcuts (?)"
+          style="padding:0 10px; font-size:1rem; font-weight:600; opacity:0.6;">?</button>
       </div>
     </header>
 
@@ -123,8 +167,13 @@
     <div id="searchOverlay" class="search-overlay" role="dialog" aria-modal="true" aria-label="Search QuantumVerse">
       <div class="search-modal">
         <div class="search-input-wrap">
-          <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input type="text" id="searchInput" placeholder="Search lessons, algorithms, gates, terms..." aria-label="Search query" autocomplete="off" />
+          <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+          <input type="text" id="searchInput" placeholder="Search lessons, algorithms, gates, terms..."
+            aria-label="Search query" autocomplete="off" />
           <kbd class="search-esc-hint">ESC</kbd>
         </div>
         <div id="searchResults" class="search-results"></div>
@@ -143,7 +192,11 @@
         <div class="shortcuts-header">
           <span>Keyboard Shortcuts</span>
           <button id="shortcutsClose" aria-label="Close shortcuts">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
           </button>
         </div>
         <div class="shortcuts-grid">
@@ -179,41 +232,88 @@
       <aside id="sidebar">
         <div class="sidebar-section-label" id="label-learning-path">Learning Path</div>
         <button class="nav-item active" data-module="home" id="nav-home">
-          <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
+          <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              <polyline points="9 22 9 12 15 12 15 22" />
+            </svg></span>
           <span class="nav-label" id="nav-label-home">Home</span>
         </button>
         <button class="nav-item" data-module="foundations" id="nav-foundations">
-          <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><ellipse cx="12" cy="12" rx="11" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="11" ry="4" transform="rotate(120 12 12)"/></svg></span>
+          <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="1" />
+              <ellipse cx="12" cy="12" rx="11" ry="4" transform="rotate(60 12 12)" />
+              <ellipse cx="12" cy="12" rx="11" ry="4" transform="rotate(120 12 12)" />
+            </svg></span>
           <span class="nav-label" id="nav-label-foundations">Quantum Foundations</span>
           <span class="nav-badge" id="nav-badge-foundations">5 lessons</span>
         </button>
         <button class="nav-item" data-module="gates" id="nav-gates">
-          <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg></span>
+          <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="4" width="16" height="16" rx="2" ry="2" />
+              <rect x="9" y="9" width="6" height="6" />
+              <line x1="9" y1="1" x2="9" y2="4" />
+              <line x1="15" y1="1" x2="15" y2="4" />
+              <line x1="9" y1="20" x2="9" y2="23" />
+              <line x1="15" y1="20" x2="15" y2="23" />
+              <line x1="20" y1="9" x2="23" y2="9" />
+              <line x1="20" y1="14" x2="23" y2="14" />
+              <line x1="1" y1="9" x2="4" y2="9" />
+              <line x1="1" y1="14" x2="4" y2="14" />
+            </svg></span>
           <span class="nav-label" id="nav-label-gates">Gates &amp; Circuits</span>
           <span class="nav-badge" id="nav-badge-gates">4 lessons</span>
         </button>
         <button class="nav-item" data-module="algorithms" id="nav-algorithms">
-          <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"/><path d="M12 12V8"/></svg></span>
+          <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="16" y="16" width="6" height="6" rx="1" />
+              <rect x="2" y="16" width="6" height="6" rx="1" />
+              <rect x="9" y="2" width="6" height="6" rx="1" />
+              <path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3" />
+              <path d="M12 12V8" />
+            </svg></span>
           <span class="nav-label" id="nav-label-algorithms">Quantum Algorithms</span>
           <span class="nav-badge" id="nav-badge-algorithms">4 lessons</span>
         </button>
         <button class="nav-item" data-module="cryptography" id="nav-cryptography">
-          <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+          <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+            </svg></span>
           <span class="nav-label" id="nav-label-cryptography">Quantum Cryptography</span>
           <span class="nav-badge" id="nav-badge-cryptography">3 lessons</span>
         </button>
         <button class="nav-item" data-module="error" id="nav-error">
-          <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></span>
+          <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              <path d="m9 12 2 2 4-4" />
+            </svg></span>
           <span class="nav-label" id="nav-label-error">Error Correction</span>
           <span class="nav-badge" id="nav-badge-error">2 lessons</span>
         </button>
         <button class="nav-item" data-module="qml" id="nav-qml">
-          <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><line x1="8" y1="16" x2="8" y2="16"/><line x1="16" y1="16" x2="16" y2="16"/></svg></span>
+          <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="10" rx="2" />
+              <circle cx="12" cy="5" r="2" />
+              <path d="M12 7v4" />
+              <line x1="8" y1="16" x2="8" y2="16" />
+              <line x1="16" y1="16" x2="16" y2="16" />
+            </svg></span>
           <span class="nav-label" id="nav-label-qml">Quantum ML</span>
           <span class="nav-badge" id="nav-badge-qml">4 lessons</span>
         </button>
         <button class="nav-item" data-module="profile" id="nav-profile">
-          <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+          <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg></span>
           <span class="nav-label" id="nav-label-profile">Profile</span>
         </button>
 
@@ -224,42 +324,54 @@
               <div class="prog-label" id="prog-label-foundations">Foundations</div>
               <div class="prog-badge" id="prog-badge-foundations">0%</div>
             </div>
-            <div class="prog-bar-bg"><div class="prog-bar-fill" id="prog-foundations"></div></div>
+            <div class="prog-bar-bg">
+              <div class="prog-bar-fill" id="prog-foundations"></div>
+            </div>
           </div>
           <div class="prog-item">
             <div class="prog-label-row">
               <div class="prog-label" id="prog-label-gates">Gates</div>
               <div class="prog-badge" id="prog-badge-gates">0%</div>
             </div>
-            <div class="prog-bar-bg"><div class="prog-bar-fill" id="prog-gates"></div></div>
+            <div class="prog-bar-bg">
+              <div class="prog-bar-fill" id="prog-gates"></div>
+            </div>
           </div>
           <div class="prog-item">
             <div class="prog-label-row">
               <div class="prog-label" id="prog-label-algorithms">Algorithms</div>
               <div class="prog-badge" id="prog-badge-algorithms">0%</div>
             </div>
-            <div class="prog-bar-bg"><div class="prog-bar-fill" id="prog-algorithms"></div></div>
+            <div class="prog-bar-bg">
+              <div class="prog-bar-fill" id="prog-algorithms"></div>
+            </div>
           </div>
           <div class="prog-item">
             <div class="prog-label-row">
               <div class="prog-label" id="prog-label-cryptography">Cryptography</div>
               <div class="prog-badge" id="prog-badge-cryptography">0%</div>
             </div>
-            <div class="prog-bar-bg"><div class="prog-bar-fill" id="prog-cryptography"></div></div>
+            <div class="prog-bar-bg">
+              <div class="prog-bar-fill" id="prog-cryptography"></div>
+            </div>
           </div>
           <div class="prog-item">
             <div class="prog-label-row">
               <div class="prog-label" id="prog-label-error">Error Correction</div>
               <div class="prog-badge" id="prog-badge-error">0%</div>
             </div>
-            <div class="prog-bar-bg"><div class="prog-bar-fill" id="prog-error"></div></div>
+            <div class="prog-bar-bg">
+              <div class="prog-bar-fill" id="prog-error"></div>
+            </div>
           </div>
           <div class="prog-item">
             <div class="prog-label-row">
               <div class="prog-label" id="prog-label-qml">Quantum ML</div>
               <div class="prog-badge" id="prog-badge-qml">0%</div>
             </div>
-            <div class="prog-bar-bg"><div class="prog-bar-fill" id="prog-qml"></div></div>
+            <div class="prog-bar-bg">
+              <div class="prog-bar-fill" id="prog-qml"></div>
+            </div>
           </div>
         </div>
       </aside>
@@ -269,6 +381,8 @@
 
         <!-- HOME -->
         <div class="module-view active" id="view-home">
+
+          <div id="guest-banner"></div>
 
           <div class="home-hero">
             <!-- Dynamic Quantum Circuit and Orbit backdrop -->
@@ -283,29 +397,37 @@
                 </defs>
                 <!-- Quantum wires -->
                 <path d="M 50,80 L 250,80 L 300,130 L 700,130" fill="none" stroke="url(#gridGrad)" stroke-width="1.5" />
-                <path d="M 100,220 L 350,220 L 400,170 L 800,170" fill="none" stroke="url(#gridGrad)" stroke-width="1.5" />
-                <path d="M 180,40 L 450,40 L 500,100 L 850,100" fill="none" stroke="url(#gridGrad)" stroke-width="1.5" />
-                <path d="M 50,280 L 220,280 L 270,230 L 750,230" fill="none" stroke="url(#gridGrad)" stroke-width="1.5" />
-                
+                <path d="M 100,220 L 350,220 L 400,170 L 800,170" fill="none" stroke="url(#gridGrad)"
+                  stroke-width="1.5" />
+                <path d="M 180,40 L 450,40 L 500,100 L 850,100" fill="none" stroke="url(#gridGrad)"
+                  stroke-width="1.5" />
+                <path d="M 50,280 L 220,280 L 270,230 L 750,230" fill="none" stroke="url(#gridGrad)"
+                  stroke-width="1.5" />
+
                 <!-- Pulsing Qubits -->
                 <circle cx="0" cy="0" r="4.5" fill="#ee6d4f" style="filter: drop-shadow(0 0 5px #ee6d4f);">
                   <animateMotion dur="6s" repeatCount="indefinite" path="M 50,80 L 250,80 L 300,130 L 700,130" />
                 </circle>
                 <circle cx="0" cy="0" r="4" fill="#f07c64" style="filter: drop-shadow(0 0 4px #f07c64);">
-                  <animateMotion dur="8s" repeatCount="indefinite" path="M 100,220 L 350,220 L 400,170 L 800,170" begin="2s" />
+                  <animateMotion dur="8s" repeatCount="indefinite" path="M 100,220 L 350,220 L 400,170 L 800,170"
+                    begin="2s" />
                 </circle>
                 <circle cx="0" cy="0" r="5" fill="#10b981" style="filter: drop-shadow(0 0 6px #10b981);">
-                  <animateMotion dur="7s" repeatCount="indefinite" path="M 180,40 L 450,40 L 500,100 L 850,100" begin="1s" />
+                  <animateMotion dur="7s" repeatCount="indefinite" path="M 180,40 L 450,40 L 500,100 L 850,100"
+                    begin="1s" />
                 </circle>
               </svg>
             </div>
             <div class="hero-content">
               <div class="hero-badge" id="hero-badge">QUANTUMVERSE 2026</div>
               <h1 class="hero-title" id="hero-title">Explore the<br>Quantum World</h1>
-              <p class="hero-sub" id="hero-sub">Master quantum computing from qubits to algorithms through interactive simulations, visual circuit builders, and adaptive quizzes. No physics PhD required.</p>
+              <p class="hero-sub" id="hero-sub">Master quantum computing from qubits to algorithms through interactive
+                simulations, visual circuit builders, and adaptive quizzes. No physics PhD required.</p>
               <div class="hero-actions">
-                <button class="btn-primary" onclick="App.navigate('foundations')" id="btn-start">Start Learning →</button>
-                <button class="btn-secondary" onclick="App.navigate('gates')" id="btn-circuit">Try Circuit Builder</button>
+                <button class="btn-primary" onclick="App.navigate('foundations')" id="btn-start">Start Learning
+                  →</button>
+                <button class="btn-secondary" onclick="App.navigate('gates')" id="btn-circuit">Try Circuit
+                  Builder</button>
               </div>
             </div>
             <div class="hero-bloch-wrap">
@@ -316,28 +438,48 @@
           <div class="home-stats" id="home-stats">
             <div class="stat-card">
               <div class="stat-icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+                </svg>
               </div>
               <div class="stat-num">22</div>
               <div class="stat-label" id="stat-lessons">Lessons</div>
             </div>
             <div class="stat-card">
               <div class="stat-icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                  <line x1="12" y1="17" x2="12.01" y2="17" />
+                </svg>
               </div>
               <div class="stat-num">38+</div>
               <div class="stat-label" id="stat-quizzes">Quiz Questions</div>
             </div>
             <div class="stat-card">
               <div class="stat-icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/><path d="M12 14c-6 0-9 2-9 4v2h18v-2c0-2-3-4-9-4z"/></svg>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2a4 4 0 1 0 0 8 4 4 0 0 0 0-8z" />
+                  <path d="M12 14c-6 0-9 2-9 4v2h18v-2c0-2-3-4-9-4z" />
+                </svg>
               </div>
               <div class="stat-num">6</div>
               <div class="stat-label" id="stat-labs">Interactive Labs</div>
             </div>
             <div class="stat-card">
               <div class="stat-icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M12 2v2"/><circle cx="12" cy="7" r="3"/><line x1="9" y1="16" x2="9.01" y2="16"/><line x1="15" y1="16" x2="15.01" y2="16"/></svg>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                  <path d="M12 2v2" />
+                  <circle cx="12" cy="7" r="3" />
+                  <line x1="9" y1="16" x2="9.01" y2="16" />
+                  <line x1="15" y1="16" x2="15.01" y2="16" />
+                </svg>
               </div>
               <div class="stat-num">AI</div>
               <div class="stat-label" id="stat-ai">AI Powered</div>
@@ -348,7 +490,11 @@
           <div id="quantum-fact-section" class="quantum-fact-section">
             <div class="qf-header">
               <span class="qf-header-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M12 8v4l3 3" />
+                </svg>
               </span>
               <span>Today's Quantum Fact</span>
               <span class="qf-date-pill" id="qfDatePill"></span>
@@ -367,280 +513,444 @@
           <div class="home-section-title" id="home-modules-title">Learning Modules</div>
           <div class="home-cards-wrap">
             <div class="home-cards" id="homeCards">
-              <div class="module-card" onclick="App.navigate('foundations')" id="card-foundations" role="button" tabindex="0">
-                <div class="card-icon" style="color:var(--accent-cyan);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><ellipse cx="12" cy="12" rx="11" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="11" ry="4" transform="rotate(120 12 12)"/></svg></div>
+              <div class="module-card" onclick="App.navigate('foundations')" id="card-foundations" role="button"
+                tabindex="0">
+                <div class="card-icon" style="color:var(--accent-cyan);"><svg width="18" height="18" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="1" />
+                    <ellipse cx="12" cy="12" rx="11" ry="4" transform="rotate(60 12 12)" />
+                    <ellipse cx="12" cy="12" rx="11" ry="4" transform="rotate(120 12 12)" />
+                  </svg></div>
                 <div class="card-tag beginner" id="card-f-tag">Beginner</div>
                 <div class="card-title" id="card-f-title">Quantum Foundations</div>
                 <div class="card-desc" id="card-f-desc">Qubits, superposition, Bloch sphere &amp; entanglement</div>
                 <div class="card-footer">
-                  <div class="card-prog-bg"><div class="card-prog-fill" id="card-prog-foundations"></div></div>
+                  <div class="card-prog-bg">
+                    <div class="card-prog-fill" id="card-prog-foundations"></div>
+                  </div>
                   <div class="card-cta" id="card-f-cta">Start Learning</div>
                 </div>
               </div>
               <div class="module-card" onclick="App.navigate('gates')" id="card-gates" role="button" tabindex="0">
-                <div class="card-icon" style="color:var(--accent-orange);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg></div>
+                <div class="card-icon" style="color:var(--accent-orange);"><svg width="18" height="18"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <rect x="4" y="4" width="16" height="16" rx="2" ry="2" />
+                    <rect x="9" y="9" width="6" height="6" />
+                    <line x1="9" y1="1" x2="9" y2="4" />
+                    <line x1="15" y1="1" x2="15" y2="4" />
+                    <line x1="9" y1="20" x2="9" y2="23" />
+                    <line x1="15" y1="20" x2="15" y2="23" />
+                    <line x1="20" y1="9" x2="23" y2="9" />
+                    <line x1="20" y1="14" x2="23" y2="14" />
+                    <line x1="1" y1="9" x2="4" y2="9" />
+                    <line x1="1" y1="14" x2="4" y2="14" />
+                  </svg></div>
                 <div class="card-tag" id="card-g-tag">Intermediate</div>
                 <div class="card-title" id="card-g-title">Gates &amp; Circuits</div>
                 <div class="card-desc" id="card-g-desc">Quantum gates, matrices &amp; circuit builder lab</div>
                 <div class="card-footer">
-                  <div class="card-prog-bg"><div class="card-prog-fill" id="card-prog-gates"></div></div>
+                  <div class="card-prog-bg">
+                    <div class="card-prog-fill" id="card-prog-gates"></div>
+                  </div>
                   <div class="card-cta" id="card-g-cta">Build Circuits</div>
                 </div>
               </div>
-              <div class="module-card" onclick="App.navigate('algorithms')" id="card-algorithms" role="button" tabindex="0">
-                <div class="card-icon" style="color:var(--accent-pink);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"/><path d="M12 12V8"/></svg></div>
+              <div class="module-card" onclick="App.navigate('algorithms')" id="card-algorithms" role="button"
+                tabindex="0">
+                <div class="card-icon" style="color:var(--accent-pink);"><svg width="18" height="18" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="16" y="16" width="6" height="6" rx="1" />
+                    <rect x="2" y="16" width="6" height="6" rx="1" />
+                    <rect x="9" y="2" width="6" height="6" rx="1" />
+                    <path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3" />
+                    <path d="M12 12V8" />
+                  </svg></div>
                 <div class="card-tag" id="card-a-tag">Intermediate</div>
                 <div class="card-title" id="card-a-title">Quantum Algorithms</div>
                 <div class="card-desc" id="card-a-desc">Grover's search, Deutsch-Jozsa &amp; quantum speedups</div>
                 <div class="card-footer">
-                  <div class="card-prog-bg"><div class="card-prog-fill" id="card-prog-algorithms"></div></div>
+                  <div class="card-prog-bg">
+                    <div class="card-prog-fill" id="card-prog-algorithms"></div>
+                  </div>
                   <div class="card-cta" id="card-a-cta">Explore</div>
                 </div>
               </div>
-              <div class="module-card" onclick="App.navigate('cryptography')" id="card-cryptography" role="button" tabindex="0">
-                <div class="card-icon" style="color:var(--accent-purple);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+              <div class="module-card" onclick="App.navigate('cryptography')" id="card-cryptography" role="button"
+                tabindex="0">
+                <div class="card-icon" style="color:var(--accent-purple);"><svg width="18" height="18"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                  </svg></div>
                 <div class="card-tag advanced" id="card-c-tag">Advanced</div>
                 <div class="card-title" id="card-c-title">Quantum Cryptography</div>
                 <div class="card-desc" id="card-c-desc">BB84 protocol, QKD &amp; quantum security</div>
                 <div class="card-footer">
-                  <div class="card-prog-bg"><div class="card-prog-fill" id="card-prog-cryptography"></div></div>
+                  <div class="card-prog-bg">
+                    <div class="card-prog-fill" id="card-prog-cryptography"></div>
+                  </div>
                   <div class="card-cta" id="card-c-cta">Learn Crypto</div>
                 </div>
               </div>
               <div class="module-card" onclick="App.navigate('error')" id="card-error" role="button" tabindex="0">
-                <div class="card-icon" style="color:var(--accent-green);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div>
+                <div class="card-icon" style="color:var(--accent-green);"><svg width="18" height="18"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    <path d="m9 12 2 2 4-4" />
+                  </svg></div>
                 <div class="card-tag advanced" id="card-e-tag">Advanced</div>
                 <div class="card-title" id="card-e-title">Error Correction</div>
                 <div class="card-desc" id="card-e-desc">3-qubit bit-flip code, syndrome detection</div>
                 <div class="card-footer">
-                  <div class="card-prog-bg"><div class="card-prog-fill" id="card-prog-error"></div></div>
+                  <div class="card-prog-bg">
+                    <div class="card-prog-fill" id="card-prog-error"></div>
+                  </div>
                   <div class="card-cta" id="card-e-cta">Fix Errors</div>
                 </div>
               </div>
-              <div class="module-card" onclick="App.navigate('qml')" id="card-qml" role="button" tabindex="0" style="border-color:rgba(154,62,38,0.4);">
-                <div class="card-icon" style="color:var(--accent-purple);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><line x1="8" y1="16" x2="8" y2="16"/><line x1="16" y1="16" x2="16" y2="16"/></svg></div>
-                <div class="card-tag" id="card-qml-tag" style="background:linear-gradient(90deg,rgba(154,62,38,0.25),rgba(238,109,79,0.25));color:var(--accent-purple);">NEW </div>
+              <div class="module-card" onclick="App.navigate('qml')" id="card-qml" role="button" tabindex="0"
+                style="border-color:rgba(154,62,38,0.4);">
+                <div class="card-icon" style="color:var(--accent-purple);"><svg width="18" height="18"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <rect x="3" y="11" width="18" height="10" rx="2" />
+                    <circle cx="12" cy="5" r="2" />
+                    <path d="M12 7v4" />
+                    <line x1="8" y1="16" x2="8" y2="16" />
+                    <line x1="16" y1="16" x2="16" y2="16" />
+                  </svg></div>
+                <div class="card-tag" id="card-qml-tag"
+                  style="background:linear-gradient(90deg,rgba(154,62,38,0.25),rgba(238,109,79,0.25));color:var(--accent-purple);">
+                  NEW </div>
                 <div class="card-title" id="card-qml-title">Quantum ML</div>
                 <div class="card-desc" id="card-qml-desc">VQE, QAOA, parameterized circuits &amp; QML</div>
                 <div class="card-footer">
-                  <div class="card-prog-bg"><div class="card-prog-fill" id="card-prog-qml" style="background:linear-gradient(90deg,var(--accent-purple),var(--accent-cyan));"></div></div>
+                  <div class="card-prog-bg">
+                    <div class="card-prog-fill" id="card-prog-qml"
+                      style="background:linear-gradient(90deg,var(--accent-purple),var(--accent-cyan));"></div>
+                  </div>
                   <div class="card-cta" id="card-qml-cta">Explore QML</div>
                 </div>
               </div>
             </div>
           </div>
 
-        <!-- Quantum Timeline Section — inside home view -->
-        <div class="quantum-timeline-section" id="quantum-timeline">
-          <h2 class="home-section-title" style="margin-bottom:0.5rem; display:flex; align-items:center; justify-content:center; gap:0.5rem;">
-            <span class="section-title-icon" style="color:var(--accent-cyan); display:flex; align-items:center;">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            </span>
-            Quantum Computing Timeline
-          </h2>
-          <p style="color:var(--text-muted);text-align:center;font-size:0.9rem;margin-bottom:2rem;">From Einstein's thought experiments to today's quantum processors</p>
-          <div class="qt-track">
-            <div class="qt-item"><div class="qt-year">1935</div><div class="qt-dot"></div><div class="qt-content"><strong>EPR Paradox</strong><p>Einstein, Podolsky &amp; Rosen publish the EPR paradox, questioning quantum mechanics' completeness. Seeds of entanglement.</p></div></div>
-            <div class="qt-item"><div class="qt-year">1964</div><div class="qt-dot"></div><div class="qt-content"><strong>Bell's Theorem</strong><p>John Bell proves quantum mechanics can't be explained by local hidden variables. Entanglement is real.</p></div></div>
-            <div class="qt-item"><div class="qt-year">1982</div><div class="qt-dot"></div><div class="qt-content"><strong>Feynman's Vision</strong><p>Richard Feynman proposes quantum computers to simulate quantum systems — classical computers can't do it efficiently.</p></div></div>
-            <div class="qt-item"><div class="qt-year">1994</div><div class="qt-dot"></div><div class="qt-content"><strong>Shor's Algorithm</strong><p>Peter Shor discovers quantum factoring — threatens RSA encryption. Launches the quantum computing race.</p></div></div>
-            <div class="qt-item"><div class="qt-year">1996</div><div class="qt-dot"></div><div class="qt-content"><strong>Grover's Algorithm</strong><p>Lov Grover finds O(√N) quantum search. First practical quantum speedup for everyday problems.</p></div></div>
-            <div class="qt-item"><div class="qt-year">2019</div><div class="qt-dot"></div><div class="qt-content"><strong>Quantum Supremacy</strong><p>Google's Sycamore processor performs a specific task in 200 seconds that would take classical supercomputers ~10,000 years.</p></div></div>
-            <div class="qt-item"><div class="qt-year">2023</div><div class="qt-dot"></div><div class="qt-content"><strong>Error Correction Milestones</strong><p>IBM, Google demonstrate logical qubits with below-threshold error rates. The path to fault tolerance becomes clear.</p></div></div>
-            <div class="qt-item"><div class="qt-year">2026+</div><div class="qt-dot"></div><div class="qt-content"><strong>NISQ Advantage Era</strong><p>VQE, QAOA algorithms showing practical advantages in chemistry and optimization. Post-quantum cryptography standardized by NIST.</p></div></div>
-          </div>
-        </div>
-
-        <!-- Quantum Hardware Gallery Section -->
-        <div class="quantum-gallery-section" id="quantum-gallery">
-          <h2 class="home-section-title" style="margin-bottom:0.5rem; display:flex; align-items:center; justify-content:center; gap:0.5rem;">
-            <span class="section-title-icon" style="color:var(--accent-orange); display:flex; align-items:center;">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
-            </span>
-            Quantum Hardware Gallery
-          </h2>
-          <p style="color:var(--text-muted);text-align:center;font-size:0.9rem;margin-bottom:2rem;">Real physical architectures driving the quantum revolution</p>
-          <div class="gallery-grid">
-            <div class="gallery-card">
-              <div class="gallery-img-wrap">
-                <img src="assets/images/superconducting_quantum_computer.png" alt="Superconducting Quantum Dilution Refrigerator" loading="lazy">
-              </div>
-              <div class="gallery-info">
-                <div>
-                  <h3 class="gallery-title">Superconducting Processors</h3>
-                  <p class="gallery-desc">Qubits constructed from micro-fabricated superconducting circuits, cooled down to near-absolute zero (10 millikelvin) inside a dilution refrigerator to minimize decoherence.</p>
-                </div>
-                <span class="gallery-tech-badge">Superconducting Circuits</span>
-              </div>
-            </div>
-            <div class="gallery-card">
-              <div class="gallery-img-wrap">
-                <img src="assets/images/ion_trap_quantum_chip.png" alt="Ion Trap Vacuum Chamber" loading="lazy">
-              </div>
-              <div class="gallery-info">
-                <div>
-                  <h3 class="gallery-title">Trapped Ion Devices</h3>
-                  <p class="gallery-desc">Charged atoms suspended in electromagnetic fields in a vacuum, manipulated using precision laser beams. Known for high gate fidelities and long coherence times.</p>
-                </div>
-                <span class="gallery-tech-badge">Electromagnetic Ion Trapping</span>
-              </div>
-            </div>
-            <div class="gallery-card">
-              <div class="gallery-img-wrap">
-                <img src="assets/images/photonic_quantum_chip.png" alt="Silicon Photonic Waveguide Chip" loading="lazy">
-              </div>
-              <div class="gallery-info">
-                <div>
-                  <h3 class="gallery-title">Photonic Quantum Computers</h3>
-                  <p class="gallery-desc">Utilizes single photons of light routed through silicon waveguides to perform computing steps. Functions perfectly at room temperature without cryogenics.</p>
-                </div>
-                <span class="gallery-tech-badge">Silicon Photonics</span>
-              </div>
-            </div>
-            <div class="gallery-card">
-              <div class="gallery-img-wrap">
-                <img src="assets/images/neutral_atom_quantum.png" alt="Neutral Atom Array trapped by Optical Tweezers" loading="lazy">
-              </div>
-              <div class="gallery-info">
-                <div>
-                  <h3 class="gallery-title">Neutral Atom Processors</h3>
-                  <p class="gallery-desc">Individual neutral rubidium atoms suspended in arrays by focused laser beams (optical tweezers). Highly scalable and capable of simulating complex quantum systems.</p>
-                </div>
-                <span class="gallery-tech-badge">Optical Tweezers</span>
-              </div>
-            </div>
-            <div class="gallery-card">
-              <div class="gallery-img-wrap">
-                <img src="assets/images/topological_quantum.png" alt="Topological Quantum Insulator Chip" loading="lazy">
-              </div>
-              <div class="gallery-info">
-                <div>
-                  <h3 class="gallery-title">Topological Computers</h3>
-                  <p class="gallery-desc">Qubits protected by braiding Majorana fermions in nanostructures. Designed to be intrinsically immune to noise, removing the need for massive error correction.</p>
-                </div>
-                <span class="gallery-tech-badge">Majorana Fermions</span>
-              </div>
-            </div>
-            <div class="gallery-card">
-              <div class="gallery-img-wrap">
-                <img src="assets/images/spin_qubit_quantum.png" alt="Silicon Dot Spin Qubit Array" loading="lazy">
-              </div>
-              <div class="gallery-info">
-                <div>
-                  <h3 class="gallery-title">Silicon Spin Qubits</h3>
-                  <p class="gallery-desc">Utilizes the spin of individual electrons trapped inside silicon quantum dots. Highly promising because they leverage standard semiconductor manufacturing.</p>
-                </div>
-                <span class="gallery-tech-badge">Silicon Quantum Dots</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Quantum Bloch Sphere Lab Section -->
-        <div class="quantum-cinema-section" id="quantum-sandbox">
-          <h2 class="home-section-title" style="margin-bottom:0.5rem; display:flex; align-items:center; justify-content:center; gap:0.5rem;">
-            <span class="section-title-icon" style="color:var(--accent-cyan); display:flex; align-items:center;">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10" stroke-dasharray="3,3"/><ellipse cx="12" cy="12" rx="10" ry="3"/><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 12 L18 7" stroke="var(--accent-pink)" stroke-width="2.5"/></svg>
-            </span>
-            Interactive Bloch Sphere Lab
-          </h2>
-          <p style="color:var(--text-muted);text-align:center;font-size:0.9rem;margin-bottom:1.5rem;">Rotate a single qubit state in real-time, apply quantum gates, and watch probabilities collapse!</p>
-          
-          <div class="sandbox-container">
-            <!-- Left Panel: 3D Canvas -->
-            <div class="sandbox-visualizer">
-              <canvas id="sandboxBlochCanvas" width="340" height="340"></canvas>
-              <div class="sandbox-helper-text">️ Drag the sphere to rotate and inspect the axes!</div>
-            </div>
-            
-            <!-- Right Panel: Controls & Equations -->
-            <div class="sandbox-controls">
-              <!-- Preset States -->
-              <div class="sandbox-control-group">
-                <span class="sandbox-group-title">State Presets:</span>
-                <div class="sandbox-preset-row">
-                  <button class="sandbox-btn preset" onclick="App.setSandboxPreset('0')">|0⟩ (Ground)</button>
-                  <button class="sandbox-btn preset" onclick="App.setSandboxPreset('1')">|1⟩ (Excited)</button>
-                  <button class="sandbox-btn preset" onclick="App.setSandboxPreset('+')">|+⟩ (Hadamard)</button>
-                  <button class="sandbox-btn preset" onclick="App.setSandboxPreset('-')">|-⟩ (Hadamard -)</button>
-                  <button class="sandbox-btn preset" onclick="App.setSandboxPreset('i')">|+i⟩</button>
-                  <button class="sandbox-btn preset" onclick="App.setSandboxPreset('-i')">|-i⟩</button>
+          <!-- Quantum Timeline Section — inside home view -->
+          <div class="quantum-timeline-section" id="quantum-timeline">
+            <h2 class="home-section-title"
+              style="margin-bottom:0.5rem; display:flex; align-items:center; justify-content:center; gap:0.5rem;">
+              <span class="section-title-icon" style="color:var(--accent-cyan); display:flex; align-items:center;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" />
+                </svg>
+              </span>
+              Quantum Computing Timeline
+            </h2>
+            <p style="color:var(--text-muted);text-align:center;font-size:0.9rem;margin-bottom:2rem;">From Einstein's
+              thought experiments to today's quantum processors</p>
+            <div class="qt-track">
+              <div class="qt-item">
+                <div class="qt-year">1935</div>
+                <div class="qt-dot"></div>
+                <div class="qt-content"><strong>EPR Paradox</strong>
+                  <p>Einstein, Podolsky &amp; Rosen publish the EPR paradox, questioning quantum mechanics'
+                    completeness. Seeds of entanglement.</p>
                 </div>
               </div>
-              
-              <!-- Quantum Gates -->
-              <div class="sandbox-control-group">
-                <span class="sandbox-group-title">Apply Quantum Gates:</span>
-                <div class="sandbox-gate-row">
-                  <button class="sandbox-btn gate gate-x" onclick="App.applyGateToSandbox('X')">X (NOT)</button>
-                  <button class="sandbox-btn gate gate-y" onclick="App.applyGateToSandbox('Y')">Y Gate</button>
-                  <button class="sandbox-btn gate gate-z" onclick="App.applyGateToSandbox('Z')">Z (Phase)</button>
-                  <button class="sandbox-btn gate gate-h" onclick="App.applyGateToSandbox('H')">H (Superposition)</button>
-                  <button class="sandbox-btn gate gate-s" onclick="App.applyGateToSandbox('S')">S Gate</button>
-                  <button class="sandbox-btn gate gate-t" onclick="App.applyGateToSandbox('T')">T Gate</button>
+              <div class="qt-item">
+                <div class="qt-year">1964</div>
+                <div class="qt-dot"></div>
+                <div class="qt-content"><strong>Bell's Theorem</strong>
+                  <p>John Bell proves quantum mechanics can't be explained by local hidden variables. Entanglement is
+                    real.</p>
                 </div>
               </div>
-              
-              <!-- Sliders -->
-              <div class="sandbox-control-group">
-                <div class="sandbox-slider-row">
-                  <div class="sandbox-slider-col">
-                    <div style="display:flex; justify-content:space-between; margin-bottom:0.25rem;">
-                      <span class="sandbox-slider-label">Angle θ (Theta):</span>
-                      <span id="sandboxThetaVal" style="color:var(--accent-pink); font-weight:700;">0°</span>
-                    </div>
-                    <input type="range" id="sandboxThetaSlider" min="0" max="180" value="0" class="sandbox-range" oninput="App.onSandboxSliderInput()">
-                  </div>
-                  <div class="sandbox-slider-col">
-                    <div style="display:flex; justify-content:space-between; margin-bottom:0.25rem;">
-                      <span class="sandbox-slider-label">Phase φ (Phi):</span>
-                      <span id="sandboxPhiVal" style="color:var(--accent-cyan); font-weight:700;">0°</span>
-                    </div>
-                    <input type="range" id="sandboxPhiSlider" min="0" max="360" value="0" class="sandbox-range" oninput="App.onSandboxSliderInput()">
-                  </div>
+              <div class="qt-item">
+                <div class="qt-year">1982</div>
+                <div class="qt-dot"></div>
+                <div class="qt-content"><strong>Feynman's Vision</strong>
+                  <p>Richard Feynman proposes quantum computers to simulate quantum systems — classical computers can't
+                    do it efficiently.</p>
                 </div>
               </div>
-
-              <!-- Probability Readout & State formula -->
-              <div class="sandbox-readout">
-                <div class="sandbox-math-box">
-                  <div class="sandbox-math-title">Current Quantum State:</div>
-                  <div class="sandbox-math-equation" id="sandboxDiracFormula">|ψ⟩ = 1.000|0⟩ + 0.000e<sup>i0°</sup>|1⟩</div>
+              <div class="qt-item">
+                <div class="qt-year">1994</div>
+                <div class="qt-dot"></div>
+                <div class="qt-content"><strong>Shor's Algorithm</strong>
+                  <p>Peter Shor discovers quantum factoring — threatens RSA encryption. Launches the quantum computing
+                    race.</p>
                 </div>
-
-                <div class="probability-bars">
-                  <div class="prob-bar-row">
-                    <span class="prob-label">|0⟩ Probability:</span>
-                    <div class="prob-track">
-                      <div class="prob-fill fill-zero" id="sandboxProbZero" style="width: 100%;"></div>
-                    </div>
-                    <span class="prob-val" id="sandboxProbZeroText">100%</span>
-                  </div>
-                  <div class="prob-bar-row">
-                    <span class="prob-label">|1⟩ Probability:</span>
-                    <div class="prob-track">
-                      <div class="prob-fill fill-one" id="sandboxProbOne" style="width: 0%;"></div>
-                    </div>
-                    <span class="prob-val" id="sandboxProbOneText">0%</span>
-                  </div>
+              </div>
+              <div class="qt-item">
+                <div class="qt-year">1996</div>
+                <div class="qt-dot"></div>
+                <div class="qt-content"><strong>Grover's Algorithm</strong>
+                  <p>Lov Grover finds O(√N) quantum search. First practical quantum speedup for everyday problems.</p>
+                </div>
+              </div>
+              <div class="qt-item">
+                <div class="qt-year">2019</div>
+                <div class="qt-dot"></div>
+                <div class="qt-content"><strong>Quantum Supremacy</strong>
+                  <p>Google's Sycamore processor performs a specific task in 200 seconds that would take classical
+                    supercomputers ~10,000 years.</p>
+                </div>
+              </div>
+              <div class="qt-item">
+                <div class="qt-year">2023</div>
+                <div class="qt-dot"></div>
+                <div class="qt-content"><strong>Error Correction Milestones</strong>
+                  <p>IBM, Google demonstrate logical qubits with below-threshold error rates. The path to fault
+                    tolerance becomes clear.</p>
+                </div>
+              </div>
+              <div class="qt-item">
+                <div class="qt-year">2026+</div>
+                <div class="qt-dot"></div>
+                <div class="qt-content"><strong>NISQ Advantage Era</strong>
+                  <p>VQE, QAOA algorithms showing practical advantages in chemistry and optimization. Post-quantum
+                    cryptography standardized by NIST.</p>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="home-interactive-section" style="margin-top: 3.5rem;">
-          <h2 class="home-section-title" style="margin-bottom:0.5rem; display:flex; align-items:center; justify-content:center; gap:0.5rem;">
-            <span class="section-title-icon" style="color:var(--accent-orange); display:flex; align-items:center;">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/><circle cx="12" cy="12" r="10"/></svg>
-            </span>
-            Daily Quantum Challenge
-          </h2>
-          <p style="color:var(--text-muted);text-align:center;font-size:0.9rem;margin-bottom:1.5rem;">Test your math and quantum state prediction skills with today's procedurally simulated puzzle!</p>
-          <div id="daily-riddle-widget" class="interactive-card" style="max-width: 680px; margin: 0 auto;">
-            <!-- Dynamically Rendered -->
+          <!-- Quantum Hardware Gallery Section -->
+          <div class="quantum-gallery-section" id="quantum-gallery">
+            <h2 class="home-section-title"
+              style="margin-bottom:0.5rem; display:flex; align-items:center; justify-content:center; gap:0.5rem;">
+              <span class="section-title-icon" style="color:var(--accent-orange); display:flex; align-items:center;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="4" y="4" width="16" height="16" rx="2" ry="2" />
+                  <rect x="9" y="9" width="6" height="6" />
+                  <line x1="9" y1="1" x2="9" y2="4" />
+                  <line x1="15" y1="1" x2="15" y2="4" />
+                  <line x1="9" y1="20" x2="9" y2="23" />
+                  <line x1="15" y1="20" x2="15" y2="23" />
+                  <line x1="20" y1="9" x2="23" y2="9" />
+                  <line x1="20" y1="14" x2="23" y2="14" />
+                  <line x1="1" y1="9" x2="4" y2="9" />
+                  <line x1="1" y1="14" x2="4" y2="14" />
+                </svg>
+              </span>
+              Quantum Hardware Gallery
+            </h2>
+            <p style="color:var(--text-muted);text-align:center;font-size:0.9rem;margin-bottom:2rem;">Real physical
+              architectures driving the quantum revolution</p>
+            <div class="gallery-grid">
+              <div class="gallery-card">
+                <div class="gallery-img-wrap">
+                  <img src="assets/images/superconducting_quantum_computer.png"
+                    alt="Superconducting Quantum Dilution Refrigerator" loading="lazy">
+                </div>
+                <div class="gallery-info">
+                  <div>
+                    <h3 class="gallery-title">Superconducting Processors</h3>
+                    <p class="gallery-desc">Qubits constructed from micro-fabricated superconducting circuits, cooled
+                      down to near-absolute zero (10 millikelvin) inside a dilution refrigerator to minimize
+                      decoherence.</p>
+                  </div>
+                  <span class="gallery-tech-badge">Superconducting Circuits</span>
+                </div>
+              </div>
+              <div class="gallery-card">
+                <div class="gallery-img-wrap">
+                  <img src="assets/images/ion_trap_quantum_chip.png" alt="Ion Trap Vacuum Chamber" loading="lazy">
+                </div>
+                <div class="gallery-info">
+                  <div>
+                    <h3 class="gallery-title">Trapped Ion Devices</h3>
+                    <p class="gallery-desc">Charged atoms suspended in electromagnetic fields in a vacuum, manipulated
+                      using precision laser beams. Known for high gate fidelities and long coherence times.</p>
+                  </div>
+                  <span class="gallery-tech-badge">Electromagnetic Ion Trapping</span>
+                </div>
+              </div>
+              <div class="gallery-card">
+                <div class="gallery-img-wrap">
+                  <img src="assets/images/photonic_quantum_chip.png" alt="Silicon Photonic Waveguide Chip"
+                    loading="lazy">
+                </div>
+                <div class="gallery-info">
+                  <div>
+                    <h3 class="gallery-title">Photonic Quantum Computers</h3>
+                    <p class="gallery-desc">Utilizes single photons of light routed through silicon waveguides to
+                      perform computing steps. Functions perfectly at room temperature without cryogenics.</p>
+                  </div>
+                  <span class="gallery-tech-badge">Silicon Photonics</span>
+                </div>
+              </div>
+              <div class="gallery-card">
+                <div class="gallery-img-wrap">
+                  <img src="assets/images/neutral_atom_quantum.png" alt="Neutral Atom Array trapped by Optical Tweezers"
+                    loading="lazy">
+                </div>
+                <div class="gallery-info">
+                  <div>
+                    <h3 class="gallery-title">Neutral Atom Processors</h3>
+                    <p class="gallery-desc">Individual neutral rubidium atoms suspended in arrays by focused laser beams
+                      (optical tweezers). Highly scalable and capable of simulating complex quantum systems.</p>
+                  </div>
+                  <span class="gallery-tech-badge">Optical Tweezers</span>
+                </div>
+              </div>
+              <div class="gallery-card">
+                <div class="gallery-img-wrap">
+                  <img src="assets/images/topological_quantum.png" alt="Topological Quantum Insulator Chip"
+                    loading="lazy">
+                </div>
+                <div class="gallery-info">
+                  <div>
+                    <h3 class="gallery-title">Topological Computers</h3>
+                    <p class="gallery-desc">Qubits protected by braiding Majorana fermions in nanostructures. Designed
+                      to be intrinsically immune to noise, removing the need for massive error correction.</p>
+                  </div>
+                  <span class="gallery-tech-badge">Majorana Fermions</span>
+                </div>
+              </div>
+              <div class="gallery-card">
+                <div class="gallery-img-wrap">
+                  <img src="assets/images/spin_qubit_quantum.png" alt="Silicon Dot Spin Qubit Array" loading="lazy">
+                </div>
+                <div class="gallery-info">
+                  <div>
+                    <h3 class="gallery-title">Silicon Spin Qubits</h3>
+                    <p class="gallery-desc">Utilizes the spin of individual electrons trapped inside silicon quantum
+                      dots. Highly promising because they leverage standard semiconductor manufacturing.</p>
+                  </div>
+                  <span class="gallery-tech-badge">Silicon Quantum Dots</span>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+
+          <!-- Quantum Bloch Sphere Lab Section -->
+          <div class="quantum-cinema-section" id="quantum-sandbox">
+            <h2 class="home-section-title"
+              style="margin-bottom:0.5rem; display:flex; align-items:center; justify-content:center; gap:0.5rem;">
+              <span class="section-title-icon" style="color:var(--accent-cyan); display:flex; align-items:center;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10" stroke-dasharray="3,3" />
+                  <ellipse cx="12" cy="12" rx="10" ry="3" />
+                  <line x1="12" y1="2" x2="12" y2="22" />
+                  <line x1="2" y1="12" x2="22" y2="12" />
+                  <path d="M12 12 L18 7" stroke="var(--accent-pink)" stroke-width="2.5" />
+                </svg>
+              </span>
+              Interactive Bloch Sphere Lab
+            </h2>
+            <p style="color:var(--text-muted);text-align:center;font-size:0.9rem;margin-bottom:1.5rem;">Rotate a single
+              qubit state in real-time, apply quantum gates, and watch probabilities collapse!</p>
+
+            <div class="sandbox-container">
+              <!-- Left Panel: 3D Canvas -->
+              <div class="sandbox-visualizer">
+                <canvas id="sandboxBlochCanvas" width="340" height="340"></canvas>
+                <div class="sandbox-helper-text">️ Drag the sphere to rotate and inspect the axes!</div>
+              </div>
+
+              <!-- Right Panel: Controls & Equations -->
+              <div class="sandbox-controls">
+                <!-- Preset States -->
+                <div class="sandbox-control-group">
+                  <span class="sandbox-group-title">State Presets:</span>
+                  <div class="sandbox-preset-row">
+                    <button class="sandbox-btn preset" onclick="App.setSandboxPreset('0')">|0⟩ (Ground)</button>
+                    <button class="sandbox-btn preset" onclick="App.setSandboxPreset('1')">|1⟩ (Excited)</button>
+                    <button class="sandbox-btn preset" onclick="App.setSandboxPreset('+')">|+⟩ (Hadamard)</button>
+                    <button class="sandbox-btn preset" onclick="App.setSandboxPreset('-')">|-⟩ (Hadamard -)</button>
+                    <button class="sandbox-btn preset" onclick="App.setSandboxPreset('i')">|+i⟩</button>
+                    <button class="sandbox-btn preset" onclick="App.setSandboxPreset('-i')">|-i⟩</button>
+                  </div>
+                </div>
+
+                <!-- Quantum Gates -->
+                <div class="sandbox-control-group">
+                  <span class="sandbox-group-title">Apply Quantum Gates:</span>
+                  <div class="sandbox-gate-row">
+                    <button class="sandbox-btn gate gate-x" onclick="App.applyGateToSandbox('X')">X (NOT)</button>
+                    <button class="sandbox-btn gate gate-y" onclick="App.applyGateToSandbox('Y')">Y Gate</button>
+                    <button class="sandbox-btn gate gate-z" onclick="App.applyGateToSandbox('Z')">Z (Phase)</button>
+                    <button class="sandbox-btn gate gate-h" onclick="App.applyGateToSandbox('H')">H
+                      (Superposition)</button>
+                    <button class="sandbox-btn gate gate-s" onclick="App.applyGateToSandbox('S')">S Gate</button>
+                    <button class="sandbox-btn gate gate-t" onclick="App.applyGateToSandbox('T')">T Gate</button>
+                  </div>
+                </div>
+
+                <!-- Sliders -->
+                <div class="sandbox-control-group">
+                  <div class="sandbox-slider-row">
+                    <div class="sandbox-slider-col">
+                      <div style="display:flex; justify-content:space-between; margin-bottom:0.25rem;">
+                        <span class="sandbox-slider-label">Angle θ (Theta):</span>
+                        <span id="sandboxThetaVal" style="color:var(--accent-pink); font-weight:700;">0°</span>
+                      </div>
+                      <input type="range" id="sandboxThetaSlider" min="0" max="180" value="0" class="sandbox-range"
+                        oninput="App.onSandboxSliderInput()">
+                    </div>
+                    <div class="sandbox-slider-col">
+                      <div style="display:flex; justify-content:space-between; margin-bottom:0.25rem;">
+                        <span class="sandbox-slider-label">Phase φ (Phi):</span>
+                        <span id="sandboxPhiVal" style="color:var(--accent-cyan); font-weight:700;">0°</span>
+                      </div>
+                      <input type="range" id="sandboxPhiSlider" min="0" max="360" value="0" class="sandbox-range"
+                        oninput="App.onSandboxSliderInput()">
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Probability Readout & State formula -->
+                <div class="sandbox-readout">
+                  <div class="sandbox-math-box">
+                    <div class="sandbox-math-title">Current Quantum State:</div>
+                    <div class="sandbox-math-equation" id="sandboxDiracFormula">|ψ⟩ = 1.000|0⟩ + 0.000e<sup>i0°</sup>|1⟩
+                    </div>
+                  </div>
+
+                  <div class="probability-bars">
+                    <div class="prob-bar-row">
+                      <span class="prob-label">|0⟩ Probability:</span>
+                      <div class="prob-track">
+                        <div class="prob-fill fill-zero" id="sandboxProbZero" style="width: 100%;"></div>
+                      </div>
+                      <span class="prob-val" id="sandboxProbZeroText">100%</span>
+                    </div>
+                    <div class="prob-bar-row">
+                      <span class="prob-label">|1⟩ Probability:</span>
+                      <div class="prob-track">
+                        <div class="prob-fill fill-one" id="sandboxProbOne" style="width: 0%;"></div>
+                      </div>
+                      <span class="prob-val" id="sandboxProbOneText">0%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="home-interactive-section" style="margin-top: 3.5rem;">
+            <h2 class="home-section-title"
+              style="margin-bottom:0.5rem; display:flex; align-items:center; justify-content:center; gap:0.5rem;">
+              <span class="section-title-icon" style="color:var(--accent-orange); display:flex; align-items:center;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                  <line x1="12" y1="17" x2="12.01" y2="17" />
+                  <circle cx="12" cy="12" r="10" />
+                </svg>
+              </span>
+              Daily Quantum Challenge
+            </h2>
+            <p style="color:var(--text-muted);text-align:center;font-size:0.9rem;margin-bottom:1.5rem;">Test your math
+              and quantum state prediction skills with today's procedurally simulated puzzle!</p>
+            <div id="daily-riddle-widget" class="interactive-card" style="max-width: 680px; margin: 0 auto;">
+              <!-- Dynamically Rendered -->
+            </div>
+          </div>
 
         </div><!-- end #view-home -->
         <!-- MODULE VIEWS (rendered by JS) -->
@@ -659,26 +969,57 @@
   <div id="tutorPanel">
     <div class="tutor-header">
       <div style="display:flex;align-items:center;gap:0.65rem;">
-        <div class="tutor-avatar" style="display:flex;align-items:center;justify-content:center;background:rgba(0,212,255,0.1);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M12 2v2"/><path d="M5 21v2"/><path d="M19 21v2"/><circle cx="12" cy="7" r="3"/><line x1="9" y1="16" x2="9.01" y2="16"/><line x1="15" y1="16" x2="15.01" y2="16"/></svg></div>
+        <div class="tutor-avatar"
+          style="display:flex;align-items:center;justify-content:center;background:rgba(0,212,255,0.1);"><svg width="18"
+            height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" style="display:block;">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+            <path d="M12 2v2" />
+            <path d="M5 21v2" />
+            <path d="M19 21v2" />
+            <circle cx="12" cy="7" r="3" />
+            <line x1="9" y1="16" x2="9.01" y2="16" />
+            <line x1="15" y1="16" x2="15.01" y2="16" />
+          </svg></div>
         <div>
           <div style="font-weight:700;font-size:0.9rem;" id="tutor-title">Qubit — Your AI Tutor</div>
-          <div class="tutor-status"><div class="tutor-status-dot"></div><span id="tutor-online">Online</span></div>
+          <div class="tutor-status">
+            <div class="tutor-status-dot"></div><span id="tutor-online">Online</span>
+          </div>
         </div>
       </div>
-      <button class="tutor-close" id="tutorClose" aria-label="Close" style="display:flex;align-items:center;justify-content:center;color:var(--text-muted);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      <button class="tutor-close" id="tutorClose" aria-label="Close"
+        style="display:flex;align-items:center;justify-content:center;color:var(--text-muted);"><svg width="14"
+          height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" style="display:block;">
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg></button>
     </div>
     <div class="tutor-messages" id="tutorMessages">
-      <div class="tutor-msg bot" id="tutor-welcome-msg">Hi! I'm Qubit, your quantum computing tutor. Ask me anything about qubits, gates, algorithms, or cryptography!</div>
-      <div class="tutor-msg bot" id="tutor-try-msg">Try asking: <em>"What is superposition?"</em> or <em>"Explain Grover's algorithm"</em></div>
+      <div class="tutor-msg bot" id="tutor-welcome-msg">Hi! I'm Qubit, your quantum computing tutor. Ask me anything
+        about qubits, gates, algorithms, or cryptography!</div>
+      <div class="tutor-msg bot" id="tutor-try-msg">Try asking: <em>"What is superposition?"</em> or <em>"Explain
+          Grover's algorithm"</em></div>
     </div>
     <div class="tutor-suggestions">
-      <button class="tutor-suggestion" onclick="Tutor.askQuestion(App.t('tutor_q1'))" id="tutor-s1">What is a qubit?</button>
-      <button class="tutor-suggestion" onclick="Tutor.askQuestion(App.t('tutor_q2'))" id="tutor-s2">Superposition?</button>
-      <button class="tutor-suggestion" onclick="Tutor.askQuestion(App.t('tutor_q3'))" id="tutor-s3">How does BB84 work?</button>
+      <button class="tutor-suggestion" onclick="Tutor.askQuestion(App.t('tutor_q1'))" id="tutor-s1">What is a
+        qubit?</button>
+      <button class="tutor-suggestion" onclick="Tutor.askQuestion(App.t('tutor_q2'))"
+        id="tutor-s2">Superposition?</button>
+      <button class="tutor-suggestion" onclick="Tutor.askQuestion(App.t('tutor_q3'))" id="tutor-s3">How does BB84
+        work?</button>
     </div>
     <div class="tutor-input-wrap">
-      <input type="text" class="tutor-input" id="tutorInput" placeholder="Ask anything about quantum…" aria-label="Ask tutor" />
-      <button class="tutor-send" id="tutorSend" aria-label="Send" style="display:flex;align-items:center;justify-content:center;color:var(--accent-blue);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+      <input type="text" class="tutor-input" id="tutorInput" placeholder="Ask anything about quantum…"
+        aria-label="Ask tutor" />
+      <button class="tutor-send" id="tutorSend" aria-label="Send"
+        style="display:flex;align-items:center;justify-content:center;color:var(--accent-blue);"><svg width="14"
+          height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" style="display:block;">
+          <line x1="22" y1="2" x2="11" y2="13" />
+          <polygon points="22 2 15 22 11 13 2 9 22 2" />
+        </svg></button>
     </div>
   </div>
 
@@ -704,7 +1045,7 @@
         <button class="auth-tab active" id="authTabSignIn" onclick="App.switchAuthTab('signin')">Sign In</button>
         <button class="auth-tab" id="authTabSignUp" onclick="App.switchAuthTab('signup')">Sign Up</button>
       </div>
-      
+
       <!-- SIGN IN FORM -->
       <form id="signInForm" onsubmit="event.preventDefault(); App.handleSignIn();">
         <div class="auth-field">
@@ -717,7 +1058,7 @@
         </div>
         <button type="submit" class="auth-submit-btn">Initialize Session</button>
       </form>
-      
+
       <!-- SIGN UP FORM -->
       <form id="signUpForm" class="hidden" onsubmit="event.preventDefault(); App.handleSignUp();">
         <div class="auth-field">
@@ -726,34 +1067,87 @@
         </div>
         <div class="auth-field">
           <label for="signupPass">Access Key (Password)</label>
-          <input type="password" id="signupPass" placeholder="Minimum 4 characters" required autocomplete="new-password">
+          <input type="password" id="signupPass" placeholder="Minimum 4 characters" required
+            autocomplete="new-password">
         </div>
         <div class="auth-field">
           <label>Select Quantum Avatar</label>
           <div class="avatar-selector">
             <div class="avatar-option active" data-avatar="atom" onclick="App.selectAvatar(this)">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent-cyan);"><circle cx="12" cy="12" r="3"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(30 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(150 12 12)"/></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent-cyan);">
+                <circle cx="12" cy="12" r="3" />
+                <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(30 12 12)" />
+                <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(150 12 12)" />
+              </svg>
             </div>
             <div class="avatar-option" data-avatar="bloch" onclick="App.selectAvatar(this)">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--accent-violet);"><circle cx="12" cy="12" r="10" stroke-dasharray="3,3"/><ellipse cx="12" cy="12" rx="10" ry="3"/><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 12 L18 7" stroke="var(--accent-orange)" stroke-width="2.5"/></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                style="color:var(--accent-violet);">
+                <circle cx="12" cy="12" r="10" stroke-dasharray="3,3" />
+                <ellipse cx="12" cy="12" rx="10" ry="3" />
+                <line x1="12" y1="2" x2="12" y2="22" />
+                <line x1="2" y1="12" x2="22" y2="12" />
+                <path d="M12 12 L18 7" stroke="var(--accent-orange)" stroke-width="2.5" />
+              </svg>
             </div>
             <div class="avatar-option" data-avatar="cat" onclick="App.selectAvatar(this)">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--accent-pink);"><path d="M12 5c-1.6 0-3 1.4-3 3v4c0 1.6 1.4 3 3 3s3-1.4 3-3V8c0-1.6-1.4-3-3-3z"/><path d="M9 7L6 3v4"/><path d="M15 7l3-4v4"/><circle cx="10.5" cy="9.5" r="1" fill="currentColor"/><circle cx="13.5" cy="9.5" r="1" fill="currentColor"/><path d="M11 12s.5.5 1 .5 1-.5 1-.5"/></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                style="color:var(--accent-pink);">
+                <path d="M12 5c-1.6 0-3 1.4-3 3v4c0 1.6 1.4 3 3 3s3-1.4 3-3V8c0-1.6-1.4-3-3-3z" />
+                <path d="M9 7L6 3v4" />
+                <path d="M15 7l3-4v4" />
+                <circle cx="10.5" cy="9.5" r="1" fill="currentColor" />
+                <circle cx="13.5" cy="9.5" r="1" fill="currentColor" />
+                <path d="M11 12s.5.5 1 .5 1-.5 1-.5" />
+              </svg>
             </div>
             <div class="avatar-option" data-avatar="chip" onclick="App.selectAvatar(this)">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--accent-orange);"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                style="color:var(--accent-orange);">
+                <rect x="4" y="4" width="16" height="16" rx="2" />
+                <rect x="9" y="9" width="6" height="6" />
+                <line x1="9" y1="1" x2="9" y2="4" />
+                <line x1="15" y1="1" x2="15" y2="4" />
+                <line x1="9" y1="20" x2="9" y2="23" />
+                <line x1="15" y1="20" x2="15" y2="23" />
+                <line x1="20" y1="9" x2="23" y2="9" />
+                <line x1="20" y1="14" x2="23" y2="14" />
+                <line x1="1" y1="9" x2="4" y2="9" />
+                <line x1="1" y1="14" x2="4" y2="14" />
+              </svg>
             </div>
             <div class="avatar-option" data-avatar="wave" onclick="App.selectAvatar(this)">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--accent-green);"><path d="M2 10s3-4 6-4 6 8 10 8 4-4 4-4"/><path d="M2 14s3-4 6-4 6 8 10 8 4-4 4-4" opacity="0.5" stroke-dasharray="2,2"/></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                style="color:var(--accent-green);">
+                <path d="M2 10s3-4 6-4 6 8 10 8 4-4 4-4" />
+                <path d="M2 14s3-4 6-4 6 8 10 8 4-4 4-4" opacity="0.5" stroke-dasharray="2,2" />
+              </svg>
             </div>
             <div class="avatar-option" data-avatar="entangled" onclick="App.selectAvatar(this)">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--accent-purple);"><circle cx="6" cy="12" r="3"/><circle cx="18" cy="12" r="3"/><path d="M9 12h6" stroke-dasharray="3,3"/><path d="M7.5 10c1.5-2.5 4.5-2.5 6 0" stroke="var(--accent-cyan)"/><path d="M10.5 14c1.5 2.5 4.5 2.5 6 0" stroke="var(--accent-pink)"/></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                style="color:var(--accent-purple);">
+                <circle cx="6" cy="12" r="3" />
+                <circle cx="18" cy="12" r="3" />
+                <path d="M9 12h6" stroke-dasharray="3,3" />
+                <path d="M7.5 10c1.5-2.5 4.5-2.5 6 0" stroke="var(--accent-cyan)" />
+                <path d="M10.5 14c1.5 2.5 4.5 2.5 6 0" stroke="var(--accent-pink)" />
+              </svg>
             </div>
             <div class="avatar-option" data-avatar="lock" onclick="App.selectAvatar(this)">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--accent-cyan);"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                style="color:var(--accent-cyan);">
+                <rect x="3" y="11" width="18" height="11" rx="2" />
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+              </svg>
             </div>
             <div class="avatar-option" data-avatar="magnet" onclick="App.selectAvatar(this)">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--accent-orange);"><path d="M17 12h5M2 12h5"/><circle cx="12" cy="12" r="3" fill="var(--accent-cyan)"/><path d="M12 2v7M12 15v7"/></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                style="color:var(--accent-orange);">
+                <path d="M17 12h5M2 12h5" />
+                <circle cx="12" cy="12" r="3" fill="var(--accent-cyan)" />
+                <path d="M12 2v7M12 15v7" />
+              </svg>
             </div>
           </div>
         </div>
@@ -774,7 +1168,8 @@
       </div>
       <p class="level-up-subtitle">You have advanced to rank:</p>
       <div class="level-up-rank" id="levelUpRank">Superpositionist</div>
-      <button class="level-up-btn" onclick="document.getElementById('levelUpOverlay').classList.add('hidden')">Awesome!</button>
+      <button class="level-up-btn"
+        onclick="document.getElementById('levelUpOverlay').classList.add('hidden')">Awesome!</button>
     </div>
   </div>
 
@@ -794,4 +1189,5 @@
   <script src="modules/qml.js?v=43"></script>
   <script src="app.js?v=43"></script>
 </body>
+
 </html>
