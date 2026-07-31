@@ -772,6 +772,7 @@ const App = {
         this.level = remoteUserData.level || 1;
         this.progress = remoteUserData.progress || {};
         this.achievements = new Set(remoteUserData.achievements || []);
+        this.visitedLessons = remoteUserData.visitedLessons || {};
         this.dailyStreak = remoteUserData.dailyStreak || 0;
         this.lastRiddleSolvedDate = remoteUserData.lastRiddleSolvedDate || '';
 
@@ -782,6 +783,7 @@ const App = {
           level: this.level,
           progress: this.progress,
           achievements: [...this.achievements],
+          visitedLessons: this.visitedLessons,
           dailyStreak: this.dailyStreak,
           lastRiddleSolvedDate: this.lastRiddleSolvedDate
         };
@@ -828,6 +830,7 @@ const App = {
 
     let success = false;
     let usingRemote = false;
+    let remoteUserData = null;
 
     // Try registering on backend first
     try {
@@ -841,7 +844,8 @@ const App = {
           xp: this.xp,
           level: this.level,
           progress: this.progress,
-          achievements: [...this.achievements]
+          achievements: [...this.achievements],
+          visitedLessons: this.visitedLessons
         })
       });
 
@@ -850,6 +854,7 @@ const App = {
         if (data.success) {
           success = true;
           usingRemote = true;
+          remoteUserData = data.user;
         }
       } else {
         const data = await response.json();
@@ -860,15 +865,31 @@ const App = {
       console.warn('Backend server offline. Registering locally only.', err);
     }
 
-    // Local fallback signup
-    if (!usingRemote) {
+    if (usingRemote && remoteUserData) {
+      // Populate the local user record from the server's response so
+      // _loadStateLocal() (called below) doesn't fall through to the
+      // guest-reset branch and wipe out the data we just saved.
+      this.users[user] = {
+        password: pass,
+        avatar: remoteUserData.avatar || 'atom',
+        xp: remoteUserData.xp || 0,
+        level: remoteUserData.level || 1,
+        progress: remoteUserData.progress || {},
+        achievements: remoteUserData.achievements || [],
+        visitedLessons: remoteUserData.visitedLessons || {},
+        dailyStreak: remoteUserData.dailyStreak || 0,
+        lastRiddleSolvedDate: remoteUserData.lastRiddleSolvedDate || ''
+      };
+    } else if (!usingRemote) {
+      // Local fallback signup
       this.users[user] = {
         password: pass,
         avatar: this.signupAvatar || 'atom',
         xp: this.xp,
         level: this.level,
         progress: this.progress,
-        achievements: [...this.achievements]
+        achievements: [...this.achievements],
+        visitedLessons: this.visitedLessons
       };
       success = true;
     }

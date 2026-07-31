@@ -44,7 +44,7 @@ const User = mongoose.model('User', UserSchema);
 // Signup Endpoint
 app.post('/api/signup', async (req, res) => {
   try {
-    const { user, pass, avatar, xp, level, progress, achievements } = req.body;
+    const { user, pass, avatar, xp, level, progress, achievements, visitedLessons } = req.body;
     if (!user || !pass) {
       return res.status(400).json({ error: 'Username and passcode are required.' });
     }
@@ -62,7 +62,7 @@ app.post('/api/signup', async (req, res) => {
       level: level || 1,
       progress: progress || {},
       achievements: achievements || [],
-      visitedLessons: {}
+      visitedLessons: visitedLessons || {}
     });
 
     await newUser.save();
@@ -74,7 +74,8 @@ app.post('/api/signup', async (req, res) => {
         xp: newUser.xp,
         level: newUser.level,
         progress: newUser.progress,
-        achievements: newUser.achievements
+        achievements: newUser.achievements,
+        visitedLessons: newUser.visitedLessons || {}
       }
     });
   } catch (err) {
@@ -101,6 +102,7 @@ app.post('/api/signin', async (req, res) => {
           level: dbUser.level,
           progress: dbUser.progress,
           achievements: dbUser.achievements,
+          visitedLessons: dbUser.visitedLessons || {},
           dailyStreak: dbUser.dailyStreak || 0,
           lastRiddleSolvedDate: dbUser.lastRiddleSolvedDate || ''
         }
