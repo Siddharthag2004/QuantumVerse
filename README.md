@@ -6,7 +6,7 @@
 * **Author:** Siddhartha Gurrapu (solo project)
 * **Live Demo:** https://quantumverse-84r8.onrender.com
 * **Repository:** https://github.com/Siddharthag2004/QuantumVerse
-
+* **Demo Video:** https://drive.google.com/file/d/1v0gj3ri5rUwTt2tDp4UCbYZNZn61_Q0o/view?usp=sharing
 ---
 
 ## Why I Built This
@@ -161,11 +161,6 @@ Just open `index.html` directly in a browser. Every module, simulator, and quiz 
 | Interactive labs and simulations | 20 |
 | Quiz questions | 100+ |
 | Live deployment | https://quantumverse-84r8.onrender.com |
-
----
-
-## Demo Video
-
 
 ---
 
