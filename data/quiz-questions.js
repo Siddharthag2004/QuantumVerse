@@ -29,7 +29,7 @@ const QuizData = {
       question: "On the Bloch sphere, what does the north pole (top) represent?",
       options: ["|1⟩", "|+⟩", "|0⟩", "|−⟩"],
       correct: 2,
-      explanation: "By convention, the north pole of the Bloch sphere represents the |0⟩ state (spin-up), and the south pole represents |1⟩ (spin-down). The equator contains all equal superpositions."
+      explanation: "By convention, the north pole of the Bloch sphere represents the |0⟩ state (spin up), and the south pole represents |1⟩ (spin down). The equator contains all equal superpositions."
     },
     {
       question: "What is the probability of measuring |0⟩ for the state |ψ⟩ = (3/5)|0⟩ + (4/5)|1⟩?",
@@ -47,7 +47,7 @@ const QuizData = {
       question: "What does 'quantum decoherence' refer to?",
       options: ["A qubit getting stuck in state |0⟩", "Unwanted interaction with the environment causing loss of quantum properties", "A gate being applied twice", "The measurement process"],
       correct: 1,
-      explanation: "Decoherence occurs when a quantum system interacts with its environment, causing the quantum superposition to effectively collapse. It's the main obstacle to building large-scale quantum computers."
+      explanation: "Decoherence occurs when a quantum system interacts with its environment, causing the quantum superposition to effectively collapse. It's the main obstacle to building large scale quantum computers."
     },
     {
       question: "For the state |+⟩ = (|0⟩ + |1⟩)/√2, what is P(|0⟩) and P(|1⟩)?",
@@ -68,7 +68,7 @@ const QuizData = {
       question: "Which gate is its own inverse (i.e., applying it twice returns to the original state)?",
       options: ["T gate", "S gate", "Hadamard (H) gate", "CNOT gate"],
       correct: 2,
-      explanation: "H² = I (identity). Applying H twice returns the qubit to its original state. This is because H is a self-inverse unitary matrix — H† = H."
+      explanation: "H² = I (identity). Applying H twice returns the qubit to its original state. This is because H is a self inverse unitary matrix — H† = H."
     },
     {
       question: "What is the Pauli-X gate equivalent to classically?",
@@ -80,7 +80,7 @@ const QuizData = {
       question: "A CNOT gate flips the target qubit when the control qubit is:",
       options: ["Always", "In state |0⟩", "In state |1⟩", "Never"],
       correct: 2,
-      explanation: "The CNOT (Controlled-NOT) gate applies X to the target only when the control qubit is |1⟩. This is the quantum equivalent of a controlled flip, fundamental to creating entanglement."
+      explanation: "The CNOT (Controlled NOT) gate applies X to the target only when the control qubit is |1⟩. This is the quantum equivalent of a controlled flip, fundamental to creating entanglement."
     },
     {
       question: "What is the matrix representation of the Hadamard gate?",
@@ -108,7 +108,7 @@ const QuizData = {
     },
     {
       question: "The Toffoli gate (CCX) is significant because:",
-      options: ["It creates superposition", "It's a 3-qubit gate that enables universal reversible classical computation", "It measures qubits", "It swaps two qubits"],
+      options: ["It creates superposition", "It's a 3 qubit gate that enables universal reversible classical computation", "It measures qubits", "It swaps two qubits"],
       correct: 1,
       explanation: "The Toffoli gate flips the target qubit only if both control qubits are |1⟩. Combined with NOT and CNOT, it can implement any classical reversible logic function, making it classically universal."
     }
@@ -122,10 +122,10 @@ const QuizData = {
       explanation: "Grover's algorithm achieves a quadratic speedup: searching N items in O(√N) oracle calls instead of O(N) classically. While not exponential, this is significant for large search spaces."
     },
     {
-      question: "The Deutsch-Jozsa algorithm determines whether a function is constant or balanced using:",
-      options: ["N/2 queries", "N queries", "Only 1 query", "Log(N) queries"],
-      correct: 2,
-      explanation: "Deutsch-Jozsa solves the problem with just 1 query to the quantum oracle, versus N/2+1 classical queries in the worst case. This was one of the first demonstrations of quantum advantage."
+      question: "The Deutsch Jozsa algorithm determines whether a function is constant or balanced using:",
+      options: ["2ⁿ⁻¹ + 1 classical queries", "Exactly 1 query to the quantum oracle", "O(N) operations", "Random sampling"],
+      correct: 1,
+      explanation: "Deutsch Jozsa solves the problem with just 1 query to the quantum oracle, versus N/2+1 classical queries in the worst case. This was one of the first demonstrations of quantum advantage."
     },
     {
       question: "Which technique is central to Grover's algorithm that amplifies the target state's probability?",
@@ -156,84 +156,100 @@ const QuizData = {
   cryptography: [
     {
       question: "In BB84, why is eavesdropping detectable?",
-      options: ["The eavesdropper leaves a digital signature", "Measuring a quantum state disturbs it, introducing detectable errors", "The encryption key is never transmitted", "Classical error-checking catches it"],
+      options: ["The eavesdropper leaves a digital signature", "Measuring a quantum state disturbs it, introducing detectable errors", "The encryption key is never transmitted", "Classical error checking catches it"],
       correct: 1,
-      explanation: "By the no-cloning theorem, an eavesdropper cannot copy an unknown quantum state. Measuring it disturbs the qubit, causing detectable statistical anomalies in the QBER (quantum bit error rate)."
+      explanation: "By the no cloning theorem, an eavesdropper cannot copy an unknown quantum state. Measuring it disturbs the qubit, causing detectable statistical anomalies in the QBER (quantum bit error rate)."
     },
     {
       question: "What does 'quantum key distribution' (QKD) guarantee?",
       options: ["Faster encryption than RSA", "Unconditional security based on physics laws, not computational hardness", "Infinite key length", "Secure communication over any classical channel"],
       correct: 1,
-      explanation: "QKD provides information-theoretic security. Its security is guaranteed by quantum mechanics (no-cloning theorem, measurement disturbance) — not by computational assumptions like RSA or AES."
+      explanation: "QKD provides information-theoretic security. Its security is guaranteed by quantum mechanics (no cloning theorem, measurement disturbance) — not by computational assumptions like RSA or AES."
     },
     {
-      question: "What threshold QBER indicates a potential eavesdropper in BB84?",
-      options: ["1%", "5%", ">11%", ">25%"],
-      correct: 2,
-      explanation: "A QBER (Quantum Bit Error Rate) exceeding ~11% indicates that an eavesdropper may be intercepting the channel. Eve's random basis choices cause ~25% errors, and any significant deviation triggers an abort."
-    },
-    {
-      question: "The no-cloning theorem states that:",
-      options: ["Qubits cannot be measured", "An arbitrary unknown quantum state cannot be perfectly copied", "Quantum teleportation is impossible", "Quantum gates are irreversible"],
+      id: "c2",
+      question: "What makes Quantum Key Distribution (QKD) provably secure?",
+      options: ["Complexity of factoring large primes", "Laws of quantum mechanics (no cloning & measurement disturbance)", "AES-256 encryption", "Public key infrastructure"],
       correct: 1,
-      explanation: "The no-cloning theorem (1982, Wootters & Zurek) proves it's impossible to make a perfect copy of an unknown quantum state. This is fundamental to QKD security — Eve cannot clone qubits without detection."
+      explanation: "QKD provides information-theoretic security. Its security is guaranteed by quantum mechanics (no cloning theorem, measurement disturbance) — not by computational assumptions like RSA or AES."
     },
     {
-      question: "What threatens RSA and ECC cryptography in the quantum era?",
-      options: ["Grover's search algorithm", "Shor's algorithm for factoring large numbers", "BB84 protocol", "Quantum teleportation"],
+      id: "c3",
+      question: "What is Post-Quantum Cryptography (PQC)?",
+      options: ["Quantum key distribution using hardware", "Classical cryptographic algorithms resistant to quantum attacks", "A type of quantum gate", "An error-correcting code"],
       correct: 1,
-      explanation: "Shor's algorithm can break RSA and ECC by efficiently factoring large integers and computing discrete logarithms — tasks that underpin these classical cryptosystems. A fault-tolerant quantum computer would render them insecure."
+      explanation: "PQC refers to new classical cryptographic algorithms (lattice-based, code-based) that run on standard computers but are mathematically secure against quantum computers."
+    },
+    {
+      id: "c4",
+      question: "The no cloning theorem states that:",
+      options: ["Quantum computers cannot be cloned", "It is impossible to create an exact copy of an arbitrary unknown quantum state", "All qubits must be identical", "Qubits can be cloned if cold enough"],
+      correct: 1,
+      explanation: "The no cloning theorem (1982, Wootters & Zurek) proves it's impossible to make a perfect copy of an unknown quantum state. This is fundamental to QKD security — Eve cannot clone qubits without detection."
+    },
+    {
+      id: "c5",
+      question: "Why does Shor's algorithm threaten current internet security?",
+      options: ["It bypasses firewalls", "It efficiently factors large integers and computes discrete logarithms, breaking RSA and ECC", "It crashes classical servers", "It clones private keys"],
+      correct: 1,
+      explanation: "Shor's algorithm can break RSA and ECC by efficiently factoring large integers and computing discrete logarithms — tasks that underpin these classical cryptosystems. A fault tolerant quantum computer would render them insecure."
     }
   ],
 
   error: [
     {
-      question: "Why can't we simply copy quantum states to protect against errors?",
-      options: ["It's too computationally expensive", "The no-cloning theorem forbids copying unknown quantum states", "There isn't enough memory", "We can — quantum states can be copied freely"],
+      id: "e1",
+      question: "Why can't quantum error correction simply make copies of qubits like classical repetition codes?",
+      options: ["It's too computationally expensive", "The no cloning theorem forbids copying unknown quantum states", "There isn't enough memory", "We can — quantum states can be copied freely"],
       correct: 1,
-      explanation: "The no-cloning theorem (1982, Wootters & Zurek) proves it's impossible to create an identical copy of an arbitrary unknown quantum state. This forces quantum error correction to use entanglement instead."
+      explanation: "The no cloning theorem (1982, Wootters & Zurek) proves it's impossible to create an identical copy of an arbitrary unknown quantum state. This forces quantum error correction to use entanglement instead."
     },
     {
-      question: "The 3-qubit bit-flip code encodes 1 logical qubit into 3 physical qubits. This corrects:",
-      options: ["Any error on all 3 qubits", "Phase flip errors", "A single bit-flip error on any one of the 3 qubits", "Decoherence on all qubits"],
+      id: "e2",
+      question: "The 3 qubit bit flip code encodes 1 logical qubit into 3 physical qubits. This corrects:",
+      options: ["Any error on all 3 qubits", "Phase flip errors", "A single bit flip error on any one of the 3 qubits", "Decoherence on all qubits"],
       correct: 2,
-      explanation: "The 3-qubit repetition code can detect and correct a bit-flip on any single qubit by using majority voting: if one qubit differs from the other two, it was flipped and can be corrected."
+      explanation: "The 3 qubit repetition code can detect and correct a bit flip on any single qubit by using majority voting: if one qubit differs from the other two, it was flipped and can be corrected."
     },
     {
-      question: "In the 3-qubit bit-flip code, the syndrome for 'no error' is:",
-      options: ["s₁=1, s₂=1", "s₁=0, s₂=1", "s₁=0, s₂=0", "s₁=1, s₂=0"],
-      correct: 2,
-      explanation: "The syndrome bits are s₁ = q₀⊕q₁ and s₂ = q₁⊕q₂. If all qubits agree (no error), all parity checks give 0, so s₁=0, s₂=0. Any non-zero syndrome pinpoints the erroneous qubit."
-    },
-    {
-      question: "Which quantum error correction code can handle both bit-flip AND phase-flip errors?",
-      options: ["3-qubit repetition code", "Shor code (9 qubits)", "Classical parity code", "Hadamard code"],
+      id: "e3",
+      question: "In the 3 qubit bit flip code, the syndrome for 'no error' is:",
+      options: ["s₁=1, s₂=0", "s₁=0, s₂=0", "s₁=1, s₂=1", "s₁=0, s₂=1"],
       correct: 1,
-      explanation: "The Shor code uses 9 physical qubits to encode 1 logical qubit and can correct both bit-flip (X) and phase-flip (Z) errors. It combines a 3-qubit bit-flip code and a 3-qubit phase-flip code."
+      explanation: "The syndrome bits are s₁ = q₀⊕q₁ and s₂ = q₁⊕q₂. If all qubits agree (no error), all parity checks give 0, so s₁=0, s₂=0. Any non zero syndrome pinpoints the erroneous qubit."
+    },
+    {
+      id: "e4",
+      question: "Which quantum error correction code can handle both bit flip AND phase flip errors?",
+      options: ["3 qubit repetition code", "Shor code (9 qubits)", "Classical parity code", "Hadamard code"],
+      correct: 1,
+      explanation: "The Shor code uses 9 physical qubits to encode 1 logical qubit and can correct both bit flip (X) and phase flip (Z) errors. It combines a 3 qubit bit flip code and a 3 qubit phase flip code."
     }
   ],
 
   qml: [
     {
       question: "What is a Parameterized Quantum Circuit (PQC)?",
-      options: ["A circuit with fixed, non-adjustable gates", "A quantum circuit with trainable rotation angle parameters θ₁, θ₂, ...", "A classical neural network running on quantum hardware", "A circuit that only measures in the computational basis"],
+      options: ["A circuit with fixed, non adjustable gates", "A quantum circuit with trainable rotation angle parameters θ₁, θ₂, ...", "A classical neural network running on quantum hardware", "A circuit that only measures in the computational basis"],
       correct: 1,
       explanation: "A PQC (also called an Ansatz) contains rotation gates with tunable parameters θ that are optimized by a classical optimizer. This is the quantum analogue of neural network weights — the core of variational quantum algorithms."
     },
     {
-      question: "The Variational Quantum Eigensolver (VQE) is mainly used for:",
-      options: ["Quantum key distribution", "Finding ground state energies of molecules/materials", "Integer factoring", "Database search"],
+      id: "q2",
+      question: "What is the primary optimization objective of the Variational Quantum Eigensolver (VQE)?",
+      options: ["Maximizing execution speed", "Minimizing the expectation value ⟨ψ(θ)|H|ψ(θ)⟩ to find the ground state energy", "Sorting quantum states", "Correcting bit flip errors"],
       correct: 1,
       explanation: "VQE uses the variational principle: ⟨ψ(θ)|H|ψ(θ)⟩ ≥ E₀. By minimizing the expectation value of the Hamiltonian over circuit parameters θ, VQE finds the ground state energy — essential for quantum chemistry."
     },
     {
-      question: "QAOA (Quantum Approximate Optimization Algorithm) is designed to solve:",
+      id: "q3",
+      question: "Which type of problem is QAOA (Quantum Approximate Optimization Algorithm) specifically designed to solve?",
       options: ["Linear systems of equations", "Combinatorial optimization problems (like Max-Cut)", "Quantum error correction", "Quantum key distribution"],
       correct: 1,
       explanation: "QAOA targets NP-hard combinatorial optimization problems (Max-Cut, portfolio optimization, scheduling). It uses alternating Cost and Mixer unitaries parameterized by γ and β to approximate the optimal solution."
     },
     {
-      question: "What is the 'quantum-classical hybrid loop' in VQE?",
+      question: "What is the 'quantum classical hybrid loop' in VQE?",
       options: ["Using quantum gates inside a classical algorithm", "Running U(θ) on quantum hardware, measuring cost, then updating θ on a classical optimizer", "Alternating between two quantum computers", "A feedback loop between two qubits"],
       correct: 1,
       explanation: "The hybrid loop: (1) prepare |ψ(θ)⟩ on quantum hardware, (2) measure ⟨H⟩, (3) send cost to classical optimizer, (4) optimizer updates θ, (5) repeat. This leverages quantum hardware while offloading optimization classically."

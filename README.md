@@ -86,16 +86,17 @@ QuantumVerse/
 ├── modules/                Learning module content and logic
 │   ├── foundations.js      Qubits, superposition, Bloch sphere, entanglement
 │   ├── gates.js            Gate library, simulator, circuit builder
-│   ├── algorithms.js       Grover's and Deutsch-Jozsa visualizers
-│   ├── cryptography.js     BB84 protocol and quantum teleportation
-│   ├── error-correction.js 3-qubit bit-flip code lab
-│   └── qml.js              VQE, QAOA, and quantum ML
-│
-├── components/             Reusable interactive components
+│   ├── algorithms.js       Grover's and Deutsch Jozsa visualizers
+│   ├── error-correction.js 3 qubit bit flip code lab
+│   ├── foundations.js      Bloch sphere, superposition, entanglement
+│   ├── gates.js            Gate matrices and circuit builder logic
+│   └── qml.js              VQE and QAOA interactive simulators
+├── components/
+│   ├── ai-tutor.js         Context aware AI chatbot
 │   ├── bloch-sphere.js     Three.js 3D Bloch sphere
-│   ├── circuit-builder.js  Drag-and-drop 4-qubit circuit simulator
-│   ├── quiz.js             Adaptive quiz engine
-│   ├── ai-tutor.js         Context-aware AI chatbot
+│   ├── circuit-builder.js  Drag and drop 4 qubit circuit simulator
+│   ├── quiz.js             Adaptive quiz engine with gamification
+│   ├── ai-tutor.js         Context aware AI chatbot
 │   └── radar-chart.js      Skill visualization chart
 │
 ├── data/
@@ -143,9 +144,9 @@ Just open `index.html` directly in a browser. Every module, simulator, and quiz 
 ## Key Interactive Features
 
 - **Bloch Sphere Lab** — 3D sphere (Three.js) with drag to rotate, theta/phi sliders, and gate application
-- **Circuit Builder** — 4-qubit drag and drop simulator
+- **Circuit Builder** — 4 qubit drag and drop simulator
 - **Grover Visualizer** — step by step amplitude bar animation
-- **Deutsch-Jozsa Simulator** — function type selection with algorithm animation
+- **Deutsch Jozsa Simulator** — function type selection with algorithm animation
 - **BB84 and Teleportation** — full Alice/Bob/Eve protocol simulation
 - **QEC Lab** — bit flip error injection, syndrome measurement, auto correction
 - **VQE and QAOA Visualizers** — interactive quantum ML optimizers
@@ -167,7 +168,7 @@ Just open `index.html` directly in a browser. Every module, simulator, and quiz 
 ## Limitations
 
 - **No real quantum hardware integration** — all simulations run classically in the browser; circuits can't yet be run on IBM Quantum or similar providers
-- **AI tutor is rule based, not LLM-powered** — it answers from a curated knowledge base, not a live language model
+- **AI tutor is rule based, not LLM powered** — it answers from a curated knowledge base, not a live language model
 - **Password storage is plaintext** — fine for a demo/education project, not production grade security
 - **Render free tier cold starts** — the deployed site can take 50+ seconds to wake up after inactivity
 - **Limited accessibility testing** — keyboard navigation exists, but I haven't fully verified WCAG compliance

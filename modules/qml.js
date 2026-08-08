@@ -232,15 +232,15 @@ const QMLModule = {
       <!-- Lesson 4: QAOA -->
       <div class="lesson-content" id="lesson-q-3">
         <h2 class="lesson-h2"> QAOA: Quantum Approximate Optimization Algorithm</h2>
-        <p class="lesson-text">QAOA is a hybrid algorithm designed to solve tough <strong>combinatorial optimization problems</strong>—like delivery routes, scheduling, and graph coloring—which are NP-hard classically.</p>
+        <p class="lesson-text">QAOA is a hybrid algorithm designed to solve tough <strong>combinatorial optimization problems</strong>—like delivery routes, scheduling, and graph coloring—which are NP hard classically.</p>
 
         <div class="math-block">|γ,β⟩ = U<sub>M</sub>(β) U<sub>C</sub>(γ) |+⟩<sup>n</sup></div>
 
         <div class="info-grid">
           <div class="info-card">
-            <h3> Max-Cut Problem</h3>
+            <h3> Max Cut Problem</h3>
             <p>Divide graph nodes into two groups to maximize the number of cut connections between them.</p>
-            <p style="margin-top:0.5rem;">• NP-hard for large graphs.</p>
+            <p style="margin-top:0.5rem;">• NP hard for large graphs.</p>
             <p style="margin-top:0.25rem;">• Used in logistics, chip layout design, and networking.</p>
           </div>
           <div class="info-card highlight">
@@ -250,7 +250,7 @@ const QMLModule = {
           </div>
         </div>
 
-        <h3 class="lesson-h3">QAOA on a 4-Node Max-Cut Problem</h3>
+        <h3 class="lesson-h3">QAOA on a 4 Node Max Cut Problem</h3>
         <p class="lesson-text">Adjust the QAOA depth (p layers) and click <strong>Run</strong> to simulate. Higher layers explore more pathways, yielding better approximations.</p>
 
         <div class="info-card" id="qaoaPanel">
